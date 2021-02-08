@@ -1,1 +1,217 @@
-<p>word-form works!</p>
+<form [formGroup]="form" (submit)="save()">
+  <div>
+    <!-- lid -->
+    <mat-form-field>
+      <input matInput [formControl]="lid" placeholder="lid" />
+      <mat-error *ngIf="lid.errors?.required && (lid.dirty || lid.touched)"
+        >lid required</mat-error
+      >
+      <mat-error *ngIf="lid.errors?.maxLength && (lid.dirty || lid.touched)"
+        >lid too long</mat-error
+      >
+    </mat-form-field>
+    &nbsp;
+    <!-- pos (bound) -->
+    <mat-form-field *ngIf="posEntries?.length" style="width: 8em">
+      <mat-select [formControl]="pos" placeholder="POS">
+        <mat-option *ngFor="let e of posEntries" [value]="e.id">{{
+          e.value
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="pos.errors?.required && (pos.dirty || pos.touched)"
+        >POS required</mat-error
+      >
+    </mat-form-field>
+
+    <!-- pos (free) -->
+    <mat-form-field *ngIf="!posEntries?.length" style="width: 8em">
+      <input matInput [formControl]="pos" placeholder="POS" />
+      <mat-error *ngIf="pos.errors?.required && (pos.dirty || pos.touched)"
+        >POS required</mat-error
+      >
+      <mat-error *ngIf="pos.errors?.maxLength && (pos.dirty || pos.touched)"
+        >POS too long</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div>
+    <!-- prelemma -->
+    <mat-form-field style="width: 4em">
+      <input matInput [formControl]="prelemma" placeholder="pre" />
+      <mat-error
+        *ngIf="
+          prelemma.errors?.maxLength && (prelemma.dirty || prelemma.touched)
+        "
+        >too long</mat-error
+      >
+    </mat-form-field>
+
+    &nbsp;
+    <!-- lemma -->
+    <mat-form-field>
+      <input matInput [formControl]="lemma" placeholder="lemma" />
+      <mat-error
+        *ngIf="lemma.errors?.required && (lemma.dirty || lemma.touched)"
+        >lemma required</mat-error
+      >
+      <mat-error
+        *ngIf="lemma.errors?.maxLength && (lemma.dirty || lemma.touched)"
+        >lemma too long</mat-error
+      >
+    </mat-form-field>
+
+    &nbsp;
+    <!-- postlemma -->
+    <mat-form-field style="width: 4em">
+      <input matInput [formControl]="postlemma" placeholder="post" />
+      <mat-error
+        *ngIf="
+          postlemma.errors?.maxLength && (postlemma.dirty || postlemma.touched)
+        "
+        >too long</mat-error
+      >
+    </mat-form-field>
+    <!-- homograph -->
+    <mat-form-field style="width: 3em">
+      <input
+        matInput
+        type="number"
+        min="0"
+        [formControl]="homograph"
+        placeholder="hom."
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <!-- note -->
+    <mat-form-field class="long-text">
+      <textarea
+        matInput
+        rows="2"
+        [formControl]="note"
+        placeholder="note"
+      ></textarea>
+      <mat-error *ngIf="note.errors?.maxLength && (note.dirty || note.touched)"
+        >note too long</mat-error
+      >
+    </mat-form-field>
+  </div>
+
+  <!-- variants -->
+  <div formArrayName="variants">
+    <div>
+      <button
+        type="button"
+        mat-icon-button
+        color="primary"
+        (click)="addVariant()"
+      >
+        <mat-icon>add_circle</mat-icon>
+        add variant
+      </button>
+    </div>
+    <div
+      *ngFor="
+        let item of variants.controls;
+        let i = index;
+        let first = first;
+        let last = last
+      "
+    >
+      <!-- child form -->
+      <div [formGroupName]="i">
+        <!-- child actions -->
+        {{ i + 1 }}.
+        <button
+          mat-icon-button
+          type="button"
+          matTooltip="Remove this variant"
+          color="warn"
+          (click)="removeVariant(i)"
+        >
+          <mat-icon>remove_circle</mat-icon>
+        </button>
+        <button
+          [disabled]="first"
+          mat-icon-button
+          type="button"
+          matTooltip="Move variant up"
+          (click)="moveVariantUp(i)"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <button
+          [disabled]="last"
+          mat-icon-button
+          type="button"
+          matTooltip="Move variant down"
+          (click)="moveVariantDown(i)"
+        >
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+
+        <!-- child controls -->
+        <!-- tag (bound) -->
+        <mat-form-field *ngIf="varTagEntries?.length" style="width: 8em">
+          <mat-select formControlName="tag" placeholder="tag">
+            <mat-option *ngFor="let e of varTagEntries" [value]="e.id">{{
+              e.value
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- tag (free) -->
+        <mat-form-field *ngIf="!varTagEntries?.length" style="width: 8em">
+          <input matInput formControlName="tag" placeholder="tag" />
+          <mat-error
+            *ngIf="
+              item['controls'].tag.errors?.maxLength &&
+              (item['controls'].tag.dirty || item['controls'].tag.touched)
+            "
+            >tag too long</mat-error
+          >
+        </mat-form-field>
+        &nbsp;
+        <!-- value -->
+        <mat-form-field>
+          <input matInput formControlName="value" placeholder="value" />
+          <mat-error
+            *ngIf="
+              item['controls'].value.errors?.required &&
+              (item['controls'].value.dirty || item['controls'].value.touched)
+            "
+            >value required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              item['controls'].value.errors?.maxLength &&
+              (item['controls'].value.dirty || item['controls'].value.touched)
+            "
+            >value too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div>
+    <button
+      type="button"
+      color="warn"
+      mat-icon-button
+      matTooltip="Discard form changes"
+      (click)="cancel()"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+    <button
+      type="submit"
+      color="primary"
+      mat-icon-button
+      matTooltip="Accept form changes"
+      [disabled]="form.invalid || form.pristine"
+    >
+      <mat-icon>check_circle</mat-icon>
+    </button>
+  </div>
+</form>

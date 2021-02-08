@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ThesaurusEntry } from '@myrmidon/cadmus-core';
 import { VariantForm, WordForm } from '../word-forms-part';
 
 @Component({
@@ -24,6 +25,11 @@ export class WordFormComponent implements OnInit {
     this._model = value;
     this.updateForm(value);
   }
+
+  @Input()
+  public posEntries: ThesaurusEntry[] | undefined;
+  @Input()
+  public varTagEntries: ThesaurusEntry[] | undefined;
 
   @Output()
   public modelChange: EventEmitter<WordForm>;
@@ -80,14 +86,34 @@ export class WordFormComponent implements OnInit {
       return;
     }
 
-    // TODO set controls values
+    this.lid.setValue(model.lid);
+    this.prelemma.setValue(model.prelemma);
+    this.lemma.setValue(model.lemma);
+    this.postlemma.setValue(model.postlemma);
+    this.homograph.setValue(model.homograph);
+    this.pos.setValue(model.pos);
+    this.note.setValue(model.note);
+    // variants
+    this.variants.clear();
+    if (model.variants?.length) {
+      for (let v of model.variants) {
+        this.variants.controls.push(this.getVariantGroup(v));
+      }
+    }
 
     this.form.markAsPristine();
   }
 
   private getModel(): WordForm | null {
     return {
-      // TODO get values from controls
+      lid: this.lid.value?.trim(),
+      prelemma: this.prelemma.value?.trim(),
+      lemma: this.lemma.value?.trim(),
+      postlemma: this.postlemma.value?.trim(),
+      homograph: this.homograph.value,
+      pos: this.pos.value?.trim(),
+      note: this.note.value?.trim(),
+      variants: this.getVariants()
     };
   }
 
