@@ -1,1 +1,10 @@
-<p>word-forms-part-feature works!</p>
+<cadmus-current-item-bar></cadmus-current-item-bar>
+<pura-word-form-part
+  [itemId]="itemId"
+  [roleId]="roleId"
+  [model]="part$ | async"
+  (modelChange)="save($event)"
+  [thesauri]="thesauri$ | async"
+  (editorClose)="close()"
+  (dirtyChange)="onDirtyChange($event)"
+></pura-word-form-part>

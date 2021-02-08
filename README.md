@@ -2,7 +2,7 @@
 
 Quick Docker image build:
 
-1. `npm run build-all`
+1. `npm run build-lib`
 2. `ng build --prod`
 3. `docker build . -t vedph2020/cadmus-pura-app:1.0.0 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
 

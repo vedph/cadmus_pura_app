@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-gr": "ng build @myrmidon/cadmus-pura-part-ui --prod && ng build @myrmidon/cadmus-pura-part-pg --prod"
+    "build-lib": "ng build @myrmidon/cadmus-pura-part-ui --prod && ng build @myrmidon/cadmus-pura-part-pg --prod"
   },
   "private": true,
   "dependencies": {

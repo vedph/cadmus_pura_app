@@ -35,7 +35,10 @@ import {
 } from '@myrmidon/cadmus-tgr-part-ms-ui';
 
 // pura
-// TODO: WORD_FORMS_PART_TYPEID, LEMMA_TAG_FRAGMENT_TYPEID
+import {
+  WORD_FORMS_PART_TYPEID
+} from '@myrmidon/@myrmidon/cadmus-pura-part-ui'
+// TODO: , LEMMA_TAG_FRAGMENT_TYPEID
 
 const GENERAL = 'general';
 const PHILOLOGY = 'philology';
@@ -100,7 +103,9 @@ export const PART_EDITOR_KEYS: PartEditorKeys = {
     part: TGR_MS,
   },
   // pura
-  // TODO WORD_FORMS_PART_TYPEID
+  [WORD_FORMS_PART_TYPEID]: {
+    part: PURA
+  },
   // layer parts
   [TOKEN_TEXT_LAYER_PART_TYPEID]: {
     part: GENERAL,
