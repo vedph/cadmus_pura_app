@@ -1,0 +1,38 @@
+<div style="margin: 0 16px">
+  <div id="banner">
+    <h1>PURA</h1>
+  </div>
+  <article>
+    <h2>Welcome</h2>
+    <h3>PURA - PURism in Antiquity</h3>
+    <p>Welcome to the project editing dashboard.</p>
+    <p>You can use this dashboard to edit the PURA database.</p>
+    <p>The Cadmus PURA editor online resources are:</p>
+    <ul>
+      <li>
+        <a href="https://github.com/vedph/cadmus_pura_doc" target="_blank"
+          >documentation</a
+        >
+      </li>
+      <li>
+        <a href="https://github.com/vedph/cadmus_pura" target="_blank">core</a>:
+        models specific to the PURA project.
+      </li>
+      <li>
+        <a href="https://github.com/vedph/cadmus_pura_api" target="_blank"
+          >web API</a
+        >: the PURA web API, powering this application.
+      </li>
+      <li>
+        <a href="https://github.com/vedph/cadmus_pura_app" target="_blank"
+          >web app</a
+        >: this web application.
+      </li>
+    </ul>
+    <p *ngIf="!logged" style="margin-bottom: 8px">
+      <a mat-mini-fab color="primary" routerLink="/login"
+        ><mat-icon>login</mat-icon></a
+      ><span style="margin-left: 8px">please login</span>
+    </p>
+  </article>
+</div>

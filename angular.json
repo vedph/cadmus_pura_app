@@ -25,12 +25,26 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/env.js",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "/assets/monaco"
+              }
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "sourceMap": {
+              "scripts": true,
+              "styles": true,
+              "hidden": false,
+              "vendor": true
+            },
+            "preserveSymlinks": true
           },
           "configurations": {
             "production": {
@@ -42,7 +56,7 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -91,6 +105,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +134,86 @@
             "production": {
               "devServerTarget": "cadmus-pura-app:serve:production"
             }
+          }
+        }
+      }
+    },
+    "@myrmidon/cadmus-pura-part-ui": {
+      "projectType": "library",
+      "root": "projects/myrmidon/cadmus-pura-part-ui",
+      "sourceRoot": "projects/myrmidon/cadmus-pura-part-ui/src",
+      "prefix": "pura",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/myrmidon/cadmus-pura-part-ui/tsconfig.lib.json",
+            "project": "projects/myrmidon/cadmus-pura-part-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/myrmidon/cadmus-pura-part-ui/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/myrmidon/cadmus-pura-part-ui/src/test.ts",
+            "tsConfig": "projects/myrmidon/cadmus-pura-part-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/myrmidon/cadmus-pura-part-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/myrmidon/cadmus-pura-part-ui/tsconfig.lib.json",
+              "projects/myrmidon/cadmus-pura-part-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@myrmidon/cadmus-pura-part-pg": {
+      "projectType": "library",
+      "root": "projects/myrmidon/cadmus-pura-part-pg",
+      "sourceRoot": "projects/myrmidon/cadmus-pura-part-pg/src",
+      "prefix": "pura",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/myrmidon/cadmus-pura-part-pg/tsconfig.lib.json",
+            "project": "projects/myrmidon/cadmus-pura-part-pg/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/myrmidon/cadmus-pura-part-pg/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/myrmidon/cadmus-pura-part-pg/src/test.ts",
+            "tsConfig": "projects/myrmidon/cadmus-pura-part-pg/tsconfig.spec.json",
+            "karmaConfig": "projects/myrmidon/cadmus-pura-part-pg/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/myrmidon/cadmus-pura-part-pg/tsconfig.lib.json",
+              "projects/myrmidon/cadmus-pura-part-pg/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
