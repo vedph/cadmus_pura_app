@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CadmusPuraPartUiComponent } from './cadmus-pura-part-ui.component';
+import { WordFormComponent } from './word-form.component';
 
-describe('CadmusPuraPartUiComponent', () => {
-  let component: CadmusPuraPartUiComponent;
-  let fixture: ComponentFixture<CadmusPuraPartUiComponent>;
+describe('WordFormComponent', () => {
+  let component: WordFormComponent;
+  let fixture: ComponentFixture<WordFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CadmusPuraPartUiComponent ]
+      declarations: [ WordFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CadmusPuraPartUiComponent);
+    fixture = TestBed.createComponent(WordFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
