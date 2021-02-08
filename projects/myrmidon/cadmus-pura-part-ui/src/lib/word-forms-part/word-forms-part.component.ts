@@ -170,4 +170,27 @@ export class WordFormsPartComponent
     forms.splice(index + 1, 0, form);
     this.forms.setValue(forms);
   }
+
+  public formToString(form?: WordForm): string {
+    if (!form) {
+      return '';
+    }
+    const sb: string[] = [];
+    if (form.prelemma) {
+      sb.push(form.prelemma);
+      sb.push(' ');
+    }
+    sb.push(form.lemma);
+    if (form.postlemma) {
+      sb.push(' ');
+      sb.push(form.postlemma);
+    }
+    if (form.homograph) {
+      sb.push(' (');
+      sb.push(form.homograph.toString());
+      sb.push(')');
+    }
+
+    return sb.join('');
+  }
 }
