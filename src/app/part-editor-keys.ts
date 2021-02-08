@@ -37,7 +37,7 @@ import {
 // pura
 import {
   WORD_FORMS_PART_TYPEID
-} from '@myrmidon/@myrmidon/cadmus-pura-part-ui'
+} from '@myrmidon/cadmus-pura-part-ui'
 // TODO: , LEMMA_TAG_FRAGMENT_TYPEID
 
 const GENERAL = 'general';

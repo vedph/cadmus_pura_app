@@ -114,6 +114,14 @@ import { INDEX_LOOKUP_DEFINITIONS } from './index-lookup-definitions';
           canActivate: [AuthGuardService],
         },
         {
+          path: 'items/:iid/pura',
+          loadChildren: () =>
+            import('@myrmidon/cadmus-pura-part-pg').then(
+              (module) => module.CadmusPuraPartPgModule
+            ),
+          canActivate: [AuthGuardService],
+        },
+        {
           path: 'thesauri',
           loadChildren: () =>
             import('@myrmidon/cadmus-thesaurus-list').then(
