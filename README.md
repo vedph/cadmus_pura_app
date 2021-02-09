@@ -1,4 +1,4 @@
-# CadmusPuraApp
+# Cadmus PURA App
 
 Quick Docker image build:
 
