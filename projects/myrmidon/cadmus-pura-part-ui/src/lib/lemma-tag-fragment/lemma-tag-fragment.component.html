@@ -1,0 +1,76 @@
+<form [formGroup]="form" (submit)="save()">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>textsms</mat-icon>
+      </div>
+      <mat-card-title>Lemma Tag Fragment {{ model?.location }}</mat-card-title>
+      <mat-card-subtitle> {{ model?.baseText }} </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- value -->
+      <div>
+        <mat-form-field>
+          <input matInput [formControl]="value" placeholder="value" />
+          <mat-error
+            *ngIf="value.errors?.required && (value.dirty || value.touched)"
+            >value required</mat-error
+          >
+          <mat-error
+            *ngIf="value.errors?.maxLength && (value.dirty || value.touched)"
+            >value too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <!-- normValue -->
+      <div>
+        <mat-form-field>
+          <input matInput [formControl]="normValue" placeholder="norm.value" />
+          <mat-error
+            *ngIf="
+              normValue.errors?.required &&
+              (normValue.dirty || normValue.touched)
+            "
+            >norm.value required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              normValue.errors?.maxLength &&
+              (normValue.dirty || normValue.touched)
+            "
+            >norm.value too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+      <div>
+        <!-- tag (bound) -->
+        <mat-form-field *ngIf="lemTagEntries?.length" style="width: 8em">
+          <mat-select [formControl]="tag" placeholder="tag">
+            <mat-option *ngFor="let e of lemTagEntries" [value]="e.id">{{
+              e.value
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- tag (free) -->
+        <mat-form-field *ngIf="!lemTagEntries?.length" style="width: 8em">
+          <input matInput [formControl]="tag" placeholder="tag" />
+          <mat-error *ngIf="tag.errors?.maxLength && (tag.dirty || tag.touched)"
+            >tag too long</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <cadmus-close-save-buttons
+        [form]="form"
+        [noSave]="userLevel < 2"
+        (closeRequest)="close()"
+      ></cadmus-close-save-buttons>
+    </mat-card-actions>
+  </mat-card>
+</form>
