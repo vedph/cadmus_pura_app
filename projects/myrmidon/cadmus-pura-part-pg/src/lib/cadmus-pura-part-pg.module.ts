@@ -10,8 +10,10 @@ import { CadmusUiPgModule } from '@myrmidon/cadmus-ui-pg';
 import {
   CadmusPuraPartUiModule,
   WORD_FORMS_PART_TYPEID,
+  LEMMA_TAG_FRAGMENT_TYPEID,
 } from '@myrmidon/cadmus-pura-part-ui';
 import { WordFormsPartFeatureComponent } from './word-forms-part-feature/word-forms-part-feature.component';
+import { LemmaTagFragmentFeatureComponent } from './lemma-tag-fragment-feature/lemma-tag-fragment-feature.component';
 
 export const RouterModuleForChild = RouterModule.forChild([
   {
@@ -20,16 +22,19 @@ export const RouterModuleForChild = RouterModule.forChild([
     component: WordFormsPartFeatureComponent,
     canDeactivate: [PendingChangesGuard],
   },
-  // {
-  //   path: `fragment/:pid/${INTERPOLATIONS_FRAGMENT_TYPEID}/:loc`,
-  //   pathMatch: 'full',
-  //   component: InterpolationsFragmentFeatureComponent,
-  //   canDeactivate: [PendingChangesGuard],
-  // },
+  {
+    path: `fragment/:pid/${LEMMA_TAG_FRAGMENT_TYPEID}/:loc`,
+    pathMatch: 'full',
+    component: LemmaTagFragmentFeatureComponent,
+    canDeactivate: [PendingChangesGuard],
+  },
 ]);
 
 @NgModule({
-  declarations: [WordFormsPartFeatureComponent],
+  declarations: [
+    WordFormsPartFeatureComponent,
+    LemmaTagFragmentFeatureComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -44,8 +49,6 @@ export const RouterModuleForChild = RouterModule.forChild([
     // PURA
     CadmusPuraPartUiModule,
   ],
-  exports: [
-    WordFormsPartFeatureComponent
-  ],
+  exports: [WordFormsPartFeatureComponent, LemmaTagFragmentFeatureComponent],
 })
 export class CadmusPuraPartPgModule {}

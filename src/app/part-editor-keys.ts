@@ -36,9 +36,9 @@ import {
 
 // pura
 import {
-  WORD_FORMS_PART_TYPEID
+  WORD_FORMS_PART_TYPEID,
+  LEMMA_TAG_FRAGMENT_TYPEID
 } from '@myrmidon/cadmus-pura-part-ui'
-// TODO: , LEMMA_TAG_FRAGMENT_TYPEID
 
 const GENERAL = 'general';
 const PHILOLOGY = 'philology';
@@ -113,7 +113,7 @@ export const PART_EDITOR_KEYS: PartEditorKeys = {
       [COMMENT_FRAGMENT_TYPEID]: GENERAL,
       [APPARATUS_FRAGMENT_TYPEID]: PHILOLOGY,
       [LING_TAGS_FRAGMENT_TYPEID]: TGR_GR,
-      // TODO LEMMA_TAG_FRAGMENT_TYPEID
+      [LEMMA_TAG_FRAGMENT_TYPEID]: PURA
     },
   },
 };
