@@ -171,6 +171,33 @@
           >
         </mat-form-field>
         &nbsp;
+        <!-- pos (bound) -->
+        <mat-form-field *ngIf="posEntries?.length" style="width: 8em">
+          <mat-select formControlName="pos" placeholder="POS">
+            <mat-option *ngFor="let e of posEntries" [value]="e.id">{{
+              e.value
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              item['controls'].pos.errors?.required &&
+              (item['controls'].pos.dirty || item['controls'].tag.touched)
+            "
+            >POS required</mat-error
+          >
+        </mat-form-field>
+        <!-- pos (free) -->
+        <mat-form-field *ngIf="!posEntries?.length" style="width: 8em">
+          <input matInput formControlName="pos" placeholder="POS" />
+          <mat-error
+            *ngIf="
+              item['controls'].pos.errors?.maxLength &&
+              (item['controls'].pos.dirty || item['controls'].tag.touched)
+            "
+            >POS too long</mat-error
+          >
+        </mat-form-field>
+        &nbsp;
         <!-- value -->
         <mat-form-field>
           <input matInput formControlName="value" placeholder="value" />

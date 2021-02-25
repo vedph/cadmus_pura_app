@@ -5,6 +5,7 @@ import { Part } from '@myrmidon/cadmus-core';
  */
 export interface VariantForm {
   value: string;
+  pos: string;
   tag?: string;
 }
 
@@ -119,9 +120,12 @@ export const WORD_FORMS_PART_SCHEMA = {
                   anyOf: [
                     {
                       type: 'object',
-                      required: ['value'],
+                      required: ['value','pos'],
                       properties: {
                         value: {
+                          type: 'string',
+                        },
+                        pos: {
                           type: 'string',
                         },
                         tag: {

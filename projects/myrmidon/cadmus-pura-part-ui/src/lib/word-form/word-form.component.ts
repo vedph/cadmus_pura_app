@@ -113,7 +113,7 @@ export class WordFormComponent implements OnInit {
       homograph: this.homograph.value,
       pos: this.pos.value?.trim(),
       note: this.note.value?.trim(),
-      variants: this.getVariants()
+      variants: this.getVariants(),
     };
   }
 
@@ -124,7 +124,11 @@ export class WordFormComponent implements OnInit {
         Validators.required,
         Validators.maxLength(100),
       ]),
-      tag: this._formBuilder.control(null, Validators.maxLength(50)),
+      pos: this._formBuilder.control(form?.pos, [
+        Validators.required,
+        Validators.maxLength(50),
+      ]),
+      tag: this._formBuilder.control(form?.tag, Validators.maxLength(50)),
     });
   }
 
@@ -164,6 +168,7 @@ export class WordFormComponent implements OnInit {
       const g = this.variants.at(i) as FormGroup;
       entries.push({
         value: g.controls.value.value?.trim(),
+        pos: g.controls.pos.value?.trim(),
         tag: g.controls.tag.value?.trim(),
       });
     }
