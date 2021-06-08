@@ -3,8 +3,8 @@
 Quick Docker image build:
 
 1. `npm run build-lib`
-2. `ng build --prod`
-3. `docker build . -t vedph2020/cadmus-pura-app:1.0.4 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
+2. `ng build --configuration production`
+3. `docker build . -t vedph2020/cadmus-pura-app:1.0.5 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
