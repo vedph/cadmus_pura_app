@@ -16,9 +16,6 @@ import {
   APPARATUS_FRAGMENT_TYPEID,
 } from '@myrmidon/cadmus-part-philology-ui';
 
-// itinera-ms
-import { MSSIGNATURES_PART_TYPEID } from '@myrmidon/cadmus-itinera-part-ms-ui';
-
 // tgr-gr
 import {
   LING_TAGS_FRAGMENT_TYPEID,
@@ -32,6 +29,7 @@ import {
   MSPLACES_PART_TYPEID,
   MSSCRIPTS_PART_TYPEID,
   MSUNITS_PART_TYPEID,
+  MSSIGNATURES_PART_TYPEID
 } from '@myrmidon/cadmus-tgr-part-ms-ui';
 
 // pura
@@ -42,7 +40,6 @@ import {
 
 const GENERAL = 'general';
 const PHILOLOGY = 'philology';
-const ITINERA_MS = 'itinera-ms';
 const TGR_GR = 'tgr-gr';
 const TGR_MS = 'tgr-ms';
 const PURA = 'pura';
@@ -75,15 +72,14 @@ export const PART_EDITOR_KEYS: PartEditorKeys = {
   [TOKEN_TEXT_PART_TYPEID]: {
     part: GENERAL,
   },
-  // itinera-ms
-  [MSSIGNATURES_PART_TYPEID]: {
-    part: ITINERA_MS,
-  },
   // tgr-gr
   [LING_TAGS_FRAGMENT_TYPEID]: {
     part: TGR_GR
   },
   // tgr-ms
+  [MSSIGNATURES_PART_TYPEID]: {
+    part: TGR_MS,
+  },
   [MSCONTENTS_PART_TYPEID]: {
     part: TGR_MS,
   },
