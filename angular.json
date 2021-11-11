@@ -116,19 +116,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -168,18 +155,6 @@
             "tsConfig": "projects/myrmidon/cadmus-pura-part-ui/tsconfig.spec.json",
             "karmaConfig": "projects/myrmidon/cadmus-pura-part-ui/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/myrmidon/cadmus-pura-part-ui/tsconfig.lib.json",
-              "projects/myrmidon/cadmus-pura-part-ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -207,18 +182,6 @@
             "main": "projects/myrmidon/cadmus-pura-part-pg/src/test.ts",
             "tsConfig": "projects/myrmidon/cadmus-pura-part-pg/tsconfig.spec.json",
             "karmaConfig": "projects/myrmidon/cadmus-pura-part-pg/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/myrmidon/cadmus-pura-part-pg/tsconfig.lib.json",
-              "projects/myrmidon/cadmus-pura-part-pg/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
