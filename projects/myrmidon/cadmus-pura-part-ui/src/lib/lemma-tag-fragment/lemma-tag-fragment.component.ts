@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ThesaurusEntry, deepCopy } from '@myrmidon/cadmus-core';
+
+import { ThesaurusEntry } from '@myrmidon/cadmus-core';
 import { AuthService } from '@myrmidon/cadmus-api';
 import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
+import { deepCopy } from '@myrmidon/ng-tools';
+
 import { LemmaTagFragment } from '../lemma-tag-fragment';
 
 /**
@@ -49,14 +52,14 @@ export class LemmaTagFragmentComponent
 
   private updateForm(model: LemmaTagFragment): void {
     if (!model) {
-      this.form.reset();
+      this.form!.reset();
       return;
     }
 
     this.value.setValue(model.value);
     this.normValue.setValue(model.normValue);
     this.tag.setValue(model.tag);
-    this.form.markAsPristine();
+    this.form!.markAsPristine();
   }
 
   protected onModelSet(model: LemmaTagFragment): void {

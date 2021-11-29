@@ -9,4 +9,14 @@
 }
 article {
   column-width: 600px;
+  margin: 0 16px;
+}
+#logos {
+  display: flex;
+  gap: 8px;
+  margin: 64px 0px 32px;
+  justify-content: center;
+}
+#logos a {
+  text-decoration: none;
 }

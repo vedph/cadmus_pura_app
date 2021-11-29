@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import { take } from 'rxjs/operators';
 
-import { ModelEditorComponentBase, DialogService } from '@myrmidon/cadmus-ui';
+import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
 import { AuthService } from '@myrmidon/cadmus-api';
-import { ThesaurusEntry, deepCopy } from '@myrmidon/cadmus-core';
+import { ThesaurusEntry } from '@myrmidon/cadmus-core';
 import {
   WordForm,
   WordFormsPart,
   WORD_FORMS_PART_TYPEID,
 } from '../word-forms-part';
-import { take } from 'rxjs/operators';
+import { DialogService } from '@myrmidon/ng-mat-tools';
+import { deepCopy } from '@myrmidon/ng-tools';
 
 /**
  * WordFormsPart editor component.
@@ -54,11 +56,11 @@ export class WordFormsPartComponent
 
   private updateForm(model: WordFormsPart): void {
     if (!model) {
-      this.form.reset();
+      this.form!.reset();
       return;
     }
     this.forms.setValue(model.forms || []);
-    this.form.markAsPristine();
+    this.form!.markAsPristine();
   }
 
   protected onModelSet(model: WordFormsPart): void {
@@ -85,7 +87,7 @@ export class WordFormsPartComponent
     let part = this.model;
     if (!part) {
       part = {
-        itemId: this.itemId,
+        itemId: this.itemId || '',
         id: '',
         typeId: WORD_FORMS_PART_TYPEID,
         roleId: this.roleId,
@@ -96,8 +98,8 @@ export class WordFormsPartComponent
         forms: [],
       };
     }
-    part.forms = this.forms.value || [];
-    return part;
+    part!.forms = this.forms.value || [];
+    return part!;
   }
 
   public addForm(): void {
