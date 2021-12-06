@@ -8,6 +8,11 @@ Quick Docker image build:
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
+## Production (VeDPH)
+
+1. in `env.js`: replace `window.__env.apiUrl = "http://localhost:60849/api/";` with `https://6009.cophilab-cloud.ilc.cnr.it/api/`
+2. `docker build . -t vedph2020/cadmus-pura-app:1.1.3-prod`
+
 ## History
 
 - 2021-12-06: generated Docker image 1.1.2.
