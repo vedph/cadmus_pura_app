@@ -3,7 +3,6 @@ import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 
 import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
-import { AuthService } from '@myrmidon/cadmus-api';
 import { ThesaurusEntry } from '@myrmidon/cadmus-core';
 import {
   WordForm,
@@ -12,6 +11,7 @@ import {
 } from '../word-forms-part';
 import { DialogService } from '@myrmidon/ng-mat-tools';
 import { deepCopy } from '@myrmidon/ng-tools';
+import { AuthJwtService } from '@myrmidon/auth-jwt-login';
 
 /**
  * WordFormsPart editor component.
@@ -24,7 +24,8 @@ import { deepCopy } from '@myrmidon/ng-tools';
 })
 export class WordFormsPartComponent
   extends ModelEditorComponentBase<WordFormsPart>
-  implements OnInit {
+  implements OnInit
+{
   private _editedIndex: number;
 
   public tabIndex: number;
@@ -36,7 +37,7 @@ export class WordFormsPartComponent
   public forms: FormControl;
 
   constructor(
-    authService: AuthService,
+    authService: AuthJwtService,
     formBuilder: FormBuilder,
     private _dialogService: DialogService
   ) {
@@ -105,7 +106,7 @@ export class WordFormsPartComponent
   public addForm(): void {
     const form: WordForm = {
       lemma: '',
-      pos: ''
+      pos: '',
     };
     this.forms.setValue([...this.forms.value, form]);
     this.editForm(this.forms.value.length - 1);

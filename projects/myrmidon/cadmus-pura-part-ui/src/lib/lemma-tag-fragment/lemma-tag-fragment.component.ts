@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AuthJwtService } from '@myrmidon/auth-jwt-login';
 
 import { ThesaurusEntry } from '@myrmidon/cadmus-core';
-import { AuthService } from '@myrmidon/cadmus-api';
 import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
 import { deepCopy } from '@myrmidon/ng-tools';
 
@@ -19,14 +19,15 @@ import { LemmaTagFragment } from '../lemma-tag-fragment';
 })
 export class LemmaTagFragmentComponent
   extends ModelEditorComponentBase<LemmaTagFragment>
-  implements OnInit {
+  implements OnInit
+{
   public value: FormControl;
   public normValue: FormControl;
   public tag: FormControl;
 
   public lemTagEntries: ThesaurusEntry[] | undefined;
 
-  constructor(authService: AuthService, formBuilder: FormBuilder) {
+  constructor(authService: AuthJwtService, formBuilder: FormBuilder) {
     super(authService);
     // form
     this.value = formBuilder.control(null, [

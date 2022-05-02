@@ -1,6 +1,6 @@
 {
   "name": "@myrmidon/cadmus-pura-part-pg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Cadmus - PURA parts UI wrapper components.",
   "keywords": [
     "Cadmus"
@@ -14,8 +14,8 @@
     "name": "Daniele Fusi"
   },
   "peerDependencies": {
-    "@angular/common": "^11.1.2",
-    "@angular/core": "^11.1.2"
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

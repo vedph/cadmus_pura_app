@@ -7,35 +7,88 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
-// flex
+// material
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 import { FlexLayoutModule } from '@angular/flex-layout';
+// Akita
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 // ngx monaco
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 // ngx markdown
 import { MarkdownModule } from 'ngx-markdown';
-// Akita
-import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
-import { CadmusCoreModule, PendingChangesGuard } from '@myrmidon/cadmus-core';
-import { CadmusUiModule } from '@myrmidon/cadmus-ui';
-import { CadmusPartGeneralUiModule } from '@myrmidon/cadmus-part-general-ui';
-import { CadmusPartPhilologyUiModule } from '@myrmidon/cadmus-part-philology-ui';
-import { HomeComponent } from './home/home.component';
-import { CadmusMaterialModule } from '@myrmidon/cadmus-material';
+// myrmidon
 import {
-  AuthInterceptor,
-  AdminGuardService,
-  AuthGuardService,
-  EditorGuardService,
-} from '@myrmidon/cadmus-api';
+  EnvServiceProvider,
+  NgToolsModule,
+} from '@myrmidon/ng-tools';
+import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
+import {
+  AuthJwtAdminGuardService,
+  AuthJwtGuardService,
+  AuthJwtInterceptor,
+  AuthJwtLoginModule,
+} from '@myrmidon/auth-jwt-login';
+import { AuthJwtAdminModule } from '@myrmidon/auth-jwt-admin';
+
+// cadmus bricks
+import { CadmusRefsDocReferencesModule } from '@myrmidon/cadmus-refs-doc-references';
+import { CadmusRefsHistoricalDateModule } from '@myrmidon/cadmus-refs-historical-date';
+import { CadmusRefsExternalIdsModule } from '@myrmidon/cadmus-refs-external-ids';
+
+// cadmus libs
+import { PendingChangesGuard } from '@myrmidon/cadmus-core';
+import { EditorGuardService } from '@myrmidon/cadmus-api';
+import { CadmusCoreModule } from '@myrmidon/cadmus-core';
+import { CadmusUiModule } from '@myrmidon/cadmus-ui';
+
+import { HomeComponent } from './home/home.component';
 import { PART_EDITOR_KEYS } from './part-editor-keys';
 import { ITEM_BROWSER_KEYS } from './item-browser-keys';
 import { INDEX_LOOKUP_DEFINITIONS } from './index-lookup-definitions';
-import { EnvServiceProvider, NgToolsModule } from '@myrmidon/ng-tools';
-import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RegisterUserPageComponent } from './register-user-page/register-user-page.component';
+import { ManageUsersPageComponent } from './manage-users-page/manage-users-page.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginPageComponent,
+    ManageUsersPageComponent,
+    RegisterUserPageComponent,
+    ResetPasswordComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -46,20 +99,31 @@ import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
       [
         { path: '', redirectTo: 'home', pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
+        // auth
+        { path: 'login', component: LoginPageComponent },
         {
-          path: 'login',
-          loadChildren: () =>
-            import('@myrmidon/cadmus-login').then(
-              (module) => module.CadmusLoginModule
-            ),
+          path: 'reset-password',
+          component: ResetPasswordComponent,
+          canActivate: [AuthJwtGuardService],
         },
+        {
+          path: 'register-user',
+          component: RegisterUserPageComponent,
+          canActivate: [AuthJwtAdminGuardService],
+        },
+        {
+          path: 'manage-users',
+          component: ManageUsersPageComponent,
+          canActivate: [AuthJwtAdminGuardService],
+        },
+        // cadmus
         {
           path: 'items',
           loadChildren: () =>
             import('@myrmidon/cadmus-item-list').then(
               (module) => module.CadmusItemListModule
             ),
-          canActivate: [AuthGuardService],
+          canActivate: [AuthJwtGuardService],
         },
         {
           path: 'items/:id',
@@ -67,57 +131,18 @@ import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
             import('@myrmidon/cadmus-item-editor').then(
               (module) => module.CadmusItemEditorModule
             ),
-          canActivate: [AuthGuardService],
+          canActivate: [AuthJwtGuardService],
           canDeactivate: [PendingChangesGuard],
         },
         {
-          path: 'items/:iid/general',
+          path: 'search',
           loadChildren: () =>
-            import('@myrmidon/cadmus-part-general-pg').then(
-              (module) => module.CadmusPartGeneralPgModule
+            import('@myrmidon/cadmus-item-search').then(
+              (module) => module.CadmusItemSearchModule
             ),
-          canActivate: [AuthGuardService],
+          canActivate: [AuthJwtGuardService],
         },
-        {
-          path: 'items/:iid/philology',
-          loadChildren: () =>
-            import('@myrmidon/cadmus-part-philology-pg').then(
-              (module) => module.CadmusPartPhilologyPgModule
-            ),
-          canActivate: [AuthGuardService],
-        },
-        // {
-        //   path: 'items/:iid/itinera-ms',
-        //   loadChildren: () =>
-        //     import('@myrmidon/cadmus-itinera-part-ms-pg').then(
-        //       (module) => module.CadmusItineraPartMsPgModule
-        //     ),
-        //   canActivate: [AuthGuardService],
-        // },
-        {
-          path: 'items/:iid/tgr-gr',
-          loadChildren: () =>
-            import('@myrmidon/cadmus-tgr-part-gr-pg').then(
-              (module) => module.CadmusTgrPartGrPgModule
-            ),
-          canActivate: [AuthGuardService],
-        },
-        {
-          path: 'items/:iid/tgr-ms',
-          loadChildren: () =>
-            import('@myrmidon/cadmus-tgr-part-ms-pg').then(
-              (module) => module.CadmusTgrPartMsPgModule
-            ),
-          canActivate: [AuthGuardService],
-        },
-        {
-          path: 'items/:iid/pura',
-          loadChildren: () =>
-            import('@myrmidon/cadmus-pura-part-pg').then(
-              (module) => module.CadmusPuraPartPgModule
-            ),
-          canActivate: [AuthGuardService],
-        },
+        // cadmus - thesauri
         {
           path: 'thesauri',
           loadChildren: () =>
@@ -134,37 +159,48 @@ import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
             ),
           canActivate: [EditorGuardService],
         },
+        // cadmus - parts
         {
-          path: 'admin',
+          path: 'items/:iid/general',
           loadChildren: () =>
-            import('@myrmidon/cadmus-admin').then(
-              (module) => module.CadmusAdminModule
+            import('@myrmidon/cadmus-part-general-pg').then(
+              (module) => module.CadmusPartGeneralPgModule
             ),
-          canActivate: [AdminGuardService],
+          canActivate: [AuthJwtGuardService],
         },
         {
-          path: 'user',
+          path: 'items/:iid/philology',
           loadChildren: () =>
-            import('@myrmidon/cadmus-user').then(
-              (module) => module.CadmusUserModule
+            import('@myrmidon/cadmus-part-philology-pg').then(
+              (module) => module.CadmusPartPhilologyPgModule
             ),
-          canActivate: [AuthGuardService],
+          canActivate: [AuthJwtGuardService],
         },
         {
-          path: 'reset-password',
+          path: 'items/:iid/tgr-gr',
           loadChildren: () =>
-            import('@myrmidon/cadmus-reset-password').then(
-              (module) => module.CadmusResetPasswordModule
+            import('@myrmidon/cadmus-tgr-part-gr-pg').then(
+              (module) => module.CadmusTgrPartGrPgModule
             ),
+          canActivate: [AuthJwtGuardService],
         },
         {
-          path: 'search',
+          path: 'items/:iid/tgr-ms',
           loadChildren: () =>
-            import('@myrmidon/cadmus-item-search').then(
-              (module) => module.CadmusItemSearchModule
+            import('@myrmidon/cadmus-tgr-part-ms-pg').then(
+              (module) => module.CadmusTgrPartMsPgModule
             ),
-          canActivate: [AuthGuardService],
+          canActivate: [AuthJwtGuardService],
         },
+        {
+          path: 'items/:iid/pura',
+          loadChildren: () =>
+            import('@myrmidon/cadmus-pura-part-pg').then(
+              (module) => module.CadmusPuraPartPgModule
+            ),
+          canActivate: [AuthJwtGuardService],
+        },
+        // fallback
         { path: '**', component: HomeComponent },
       ],
       {
@@ -173,7 +209,37 @@ import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
         relativeLinkResolution: 'legacy',
       }
     ),
-    // flex
+    // material
+    DragDropModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatSnackBarModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    MatTreeModule,
     FlexLayoutModule,
     // Monaco
     MonacoEditorModule.forRoot(),
@@ -181,11 +247,17 @@ import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
     MarkdownModule.forRoot(),
     // Akita
     AkitaNgDevtools.forRoot(),
+    // myrmidon
+    NgToolsModule,
+    NgMatToolsModule,
+    AuthJwtLoginModule,
+    AuthJwtAdminModule,
+    // cadmus bricks
+    CadmusRefsDocReferencesModule,
+    CadmusRefsHistoricalDateModule,
+    CadmusRefsExternalIdsModule,
     // Cadmus
     CadmusCoreModule,
-    CadmusMaterialModule,
-    CadmusPartGeneralUiModule,
-    CadmusPartPhilologyUiModule,
     CadmusUiModule,
     NgToolsModule,
     NgMatToolsModule,
@@ -214,7 +286,7 @@ import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
     // https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: AuthJwtInterceptor,
       multi: true,
     },
   ],

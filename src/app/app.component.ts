@@ -1,12 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
+
 import {
-  User,
+  AuthJwtService,
   GravatarService,
-  Thesaurus,
-  ThesaurusEntry,
-} from '@myrmidon/cadmus-core';
-import { AuthService } from '@myrmidon/cadmus-api';
+  User,
+} from '@myrmidon/auth-jwt-login';
+import { Thesaurus, ThesaurusEntry } from '@myrmidon/cadmus-core';
 import { AppService, AppQuery } from '@myrmidon/cadmus-state';
+import { EnvService } from '@myrmidon/ng-tools';
 
 @Component({
   selector: 'cadmus-root',
@@ -17,18 +18,21 @@ export class AppComponent implements OnInit {
   public user?: User;
   public logged?: boolean;
   public itemBrowsers?: ThesaurusEntry[] | null;
+  public version: string;
 
   constructor(
     @Inject('itemBrowserKeys')
     private _itemBrowserKeys: { [key: string]: string },
-    private _authService: AuthService,
+    private _authService: AuthJwtService,
     private _gravatarService: GravatarService,
     private _appService: AppService,
-    private _appQuery: AppQuery
+    private _appQuery: AppQuery,
+    env: EnvService
   ) {
     this.user = undefined;
     this.logged = false;
     this.itemBrowsers = [];
+    this.version = env.get('version') || '';
   }
 
   ngOnInit(): void {
@@ -59,7 +63,7 @@ export class AppComponent implements OnInit {
     if (!email) {
       return '';
     }
-    return this._gravatarService.buildGravatarUrl(email, size);
+    return this._gravatarService.buildGravatarUrl(email, size) || '';
   }
 
   public logout(): void {
