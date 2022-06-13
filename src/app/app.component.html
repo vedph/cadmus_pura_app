@@ -56,22 +56,31 @@
           }}"
           >feedback</mat-icon
         >
-        <button mat-icon-button [mat-menu-trigger-for]="menu">
-          <mat-icon>more_vert</mat-icon>
+        <!-- user menu -->
+        <button mat-button [matMenuTriggerFor]="userMenu">User</button>
+        <mat-menu #userMenu>
+          <a mat-menu-item routerLink="/reset-password">Reset password</a>
+        </mat-menu>
+
+        <!-- admin menu -->
+        <button
+          *ngIf="user && user.roles.includes('admin')"
+          mat-button
+          [matMenuTriggerFor]="adminMenu"
+        >
+          Admin
         </button>
-        <mat-menu x-position="before" #menu="matMenu">
-          <a
-            mat-menu-item
-            *ngIf="user && user?.roles?.includes('admin')"
-            routerLink="/admin"
-            >Admin</a
-          >
-          <a mat-menu-item (click)="logout()">Logout</a>
+        <mat-menu #adminMenu>
+          <a mat-menu-item routerLink="/manage-users">Manage users</a>
+          <a mat-menu-item routerLink="/register-user">Register user</a>
         </mat-menu>
       </div>
 
       <div *ngIf="!logged">
         <a mat-button routerLink="/login">Login</a>
+      </div>
+      <div *ngIf="logged">
+        <a mat-button (click)="logout()">Logout</a>
       </div>
     </mat-toolbar>
   </header>
@@ -84,7 +93,7 @@
     <div layout="row" layout-align="center center">
       <p>
         This project has received funding from the European Research Council
-        (ERC) under the European Union’s Horizon 2020 research and innovation
+        (ERC) under the European Union's Horizon 2020 research and innovation
         programme (grant agreement No 865817): 2021-01-01 - 2025-12-31 - version
         {{ version }}
       </p>

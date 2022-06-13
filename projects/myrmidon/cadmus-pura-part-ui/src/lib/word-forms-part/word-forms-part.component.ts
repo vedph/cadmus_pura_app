@@ -34,7 +34,7 @@ export class WordFormsPartComponent
   public posEntries: ThesaurusEntry[] | undefined;
   public varTagEntries: ThesaurusEntry[] | undefined;
 
-  public forms: FormControl;
+  public forms: FormControl<WordForm[]>;
 
   constructor(
     authService: AuthJwtService,
@@ -45,7 +45,10 @@ export class WordFormsPartComponent
     this._editedIndex = -1;
     this.tabIndex = 0;
     // form
-    this.forms = formBuilder.control([], Validators.required);
+    this.forms = formBuilder.control([], {
+      validators: Validators.required,
+      nonNullable: true,
+    });
     this.form = formBuilder.group({
       entries: this.forms,
     });

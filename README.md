@@ -4,16 +4,22 @@ Quick Docker image build:
 
 1. `npm run build-lib`
 2. `ng build --configuration production`
-3. `docker build . -t vedph2020/cadmus-pura-app:1.1.6 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
+3. `docker build . -t vedph2020/cadmus-pura-app:1.2.0 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
 ## Production (VeDPH)
 
 1. in `dist/cadmus-pura-app/env.js`: replace `window.__env.apiUrl = "http://localhost:60849/api/";` with `https://6009.cophilab-cloud.ilc.cnr.it/api/`
-2. `docker build . -t vedph2020/cadmus-pura-app:1.1.6-prod`
+2. `docker build . -t vedph2020/cadmus-pura-app:1.2.0-prod`
 
 ## History
+
+### 1.2.0
+
+- 2022-06-13:
+  - upgraded to Angular 14 and refactored forms to use typed components.
+  - fixed admin menu.
 
 ### 1.1.6
 

@@ -204,7 +204,7 @@ import { ManageUsersPageComponent } from './manage-users-page/manage-users-page.
         { path: '**', component: HomeComponent },
       ],
       {
-        initialNavigation: 'enabled',
+        initialNavigation: 'enabledBlocking',
         useHash: true,
         relativeLinkResolution: 'legacy',
       }

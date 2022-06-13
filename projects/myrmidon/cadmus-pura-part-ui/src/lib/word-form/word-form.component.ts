@@ -36,13 +36,13 @@ export class WordFormComponent implements OnInit {
   @Output()
   public editorClose: EventEmitter<any>;
 
-  public lid: FormControl;
-  public prelemma: FormControl;
-  public lemma: FormControl;
-  public postlemma: FormControl;
-  public homograph: FormControl;
-  public pos: FormControl;
-  public note: FormControl;
+  public lid: FormControl<string | null>;
+  public prelemma: FormControl<string | null>;
+  public lemma: FormControl<string | null>;
+  public postlemma: FormControl<string | null>;
+  public homograph: FormControl<number>;
+  public pos: FormControl<string | null>;
+  public note: FormControl<string | null>;
   public variants: FormArray;
   public form: FormGroup;
 
@@ -57,7 +57,7 @@ export class WordFormComponent implements OnInit {
       Validators.maxLength(100),
     ]);
     this.postlemma = _formBuilder.control(null, Validators.maxLength(50));
-    this.homograph = _formBuilder.control(0);
+    this.homograph = _formBuilder.control(0, { nonNullable: true });
     this.pos = _formBuilder.control(null, [
       Validators.required,
       Validators.maxLength(50),
@@ -86,13 +86,13 @@ export class WordFormComponent implements OnInit {
       return;
     }
 
-    this.lid.setValue(model.lid);
-    this.prelemma.setValue(model.prelemma);
-    this.lemma.setValue(model.lemma);
-    this.postlemma.setValue(model.postlemma);
-    this.homograph.setValue(model.homograph);
+    this.lid.setValue(model.lid || null);
+    this.prelemma.setValue(model.prelemma || null);
+    this.lemma.setValue(model.lemma || null);
+    this.postlemma.setValue(model.postlemma || null);
+    this.homograph.setValue(model.homograph || 0);
     this.pos.setValue(model.pos);
-    this.note.setValue(model.note);
+    this.note.setValue(model.note || null);
     // variants
     this.variants.clear();
     if (model.variants?.length) {
@@ -108,10 +108,10 @@ export class WordFormComponent implements OnInit {
     return {
       lid: this.lid.value?.trim(),
       prelemma: this.prelemma.value?.trim(),
-      lemma: this.lemma.value?.trim(),
+      lemma: this.lemma.value?.trim() || '',
       postlemma: this.postlemma.value?.trim(),
       homograph: this.homograph.value,
-      pos: this.pos.value?.trim(),
+      pos: this.pos.value?.trim() || '',
       note: this.note.value?.trim(),
       variants: this.getVariants(),
     };

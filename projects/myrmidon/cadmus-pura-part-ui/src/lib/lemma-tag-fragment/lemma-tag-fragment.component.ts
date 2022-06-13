@@ -21,9 +21,9 @@ export class LemmaTagFragmentComponent
   extends ModelEditorComponentBase<LemmaTagFragment>
   implements OnInit
 {
-  public value: FormControl;
-  public normValue: FormControl;
-  public tag: FormControl;
+  public value: FormControl<string | null>;
+  public normValue: FormControl<string | null>;
+  public tag: FormControl<string | null>;
 
   public lemTagEntries: ThesaurusEntry[] | undefined;
 
@@ -59,7 +59,7 @@ export class LemmaTagFragmentComponent
 
     this.value.setValue(model.value);
     this.normValue.setValue(model.normValue);
-    this.tag.setValue(model.tag);
+    this.tag.setValue(model.tag || null);
     this.form!.markAsPristine();
   }
 
@@ -79,8 +79,8 @@ export class LemmaTagFragmentComponent
   protected getModelFromForm(): LemmaTagFragment {
     return {
       location: this.model?.location ?? '',
-      value: this.value.value?.trim(),
-      normValue: this.normValue.value?.trim(),
+      value: this.value.value?.trim() || '',
+      normValue: this.normValue.value?.trim() || '',
       tag: this.tag.value?.trim(),
     };
   }
