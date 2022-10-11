@@ -28,12 +28,19 @@ import {
 } from '@myrmidon/cadmus-pura-part-ui';
 import { WordFormsPartFeatureComponent } from './word-forms-part-feature/word-forms-part-feature.component';
 import { LemmaTagFragmentFeatureComponent } from './lemma-tag-fragment-feature/lemma-tag-fragment-feature.component';
+import { TokenTextLayerPartFeatureComponent } from '@myrmidon/cadmus-part-general-pg';
 
 export const RouterModuleForChild = RouterModule.forChild([
   {
     path: `${WORD_FORMS_PART_TYPEID}/:pid`,
     pathMatch: 'full',
     component: WordFormsPartFeatureComponent,
+    canDeactivate: [PendingChangesGuard],
+  },
+  {
+    path: 'it.vedph.token-text-layer/:pid',
+    pathMatch: 'full',
+    component: TokenTextLayerPartFeatureComponent,
     canDeactivate: [PendingChangesGuard],
   },
   {

@@ -13,7 +13,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 1. in `dist/cadmus-pura-app/env.js`: replace `window.__env.apiUrl = "http://localhost:60849/api/";` with `https://6009.cophilab-cloud.ilc.cnr.it/api/`
 2. `docker build . -t vedph2020/cadmus-pura-app:1.2.0-prod`
 
-## History
+## Histor
+
+- 2022-10-11:
+  - updated packages.
+  - added preview.
 
 ### 1.2.0
 
