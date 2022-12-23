@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormBuilder,
+  Validators,
+  FormGroup,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { take } from 'rxjs/operators';
 
-import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
-import { ThesaurusEntry } from '@myrmidon/cadmus-core';
+import { EditedObject, ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
+import { ThesauriSet, ThesaurusEntry } from '@myrmidon/cadmus-core';
+import { DialogService } from '@myrmidon/ng-mat-tools';
+import { AuthJwtService } from '@myrmidon/auth-jwt-login';
+
 import {
   WordForm,
   WordFormsPart,
   WORD_FORMS_PART_TYPEID,
 } from '../word-forms-part';
-import { DialogService } from '@myrmidon/ng-mat-tools';
-import { deepCopy } from '@myrmidon/ng-tools';
-import { AuthJwtService } from '@myrmidon/auth-jwt-login';
 
 /**
  * WordFormsPart editor component.
@@ -41,7 +47,7 @@ export class WordFormsPartComponent
     formBuilder: FormBuilder,
     private _dialogService: DialogService
   ) {
-    super(authService);
+    super(authService, formBuilder);
     this._editedIndex = -1;
     this.tabIndex = 0;
     // form
@@ -49,60 +55,56 @@ export class WordFormsPartComponent
       validators: Validators.required,
       nonNullable: true,
     });
-    this.form = formBuilder.group({
+  }
+
+  protected buildForm(formBuilder: FormBuilder): FormGroup | UntypedFormGroup {
+    return formBuilder.group({
       entries: this.forms,
     });
   }
 
   public ngOnInit(): void {
-    this.initEditor();
+    super.ngOnInit();
   }
 
-  private updateForm(model: WordFormsPart): void {
-    if (!model) {
-      this.form!.reset();
-      return;
-    }
-    this.forms.setValue(model.forms || []);
-    this.form!.markAsPristine();
-  }
-
-  protected onModelSet(model: WordFormsPart): void {
-    this.updateForm(deepCopy(model));
-  }
-
-  protected onThesauriSet(): void {
+  private updateThesauri(thesauri: ThesauriSet): void {
     let key = 'word-form-pos';
-    if (this.thesauri && this.thesauri[key]) {
-      this.posEntries = this.thesauri[key].entries;
+    if (this.hasThesaurus(key)) {
+      this.posEntries = thesauri[key].entries;
     } else {
       this.posEntries = undefined;
     }
 
     key = 'word-form-variant-tags';
-    if (this.thesauri && this.thesauri[key]) {
-      this.varTagEntries = this.thesauri[key].entries;
+    if (this.hasThesaurus(key)) {
+      this.varTagEntries = thesauri[key].entries;
     } else {
       this.varTagEntries = undefined;
     }
   }
 
-  protected getModelFromForm(): WordFormsPart {
-    let part = this.model;
-    if (!part) {
-      part = {
-        itemId: this.itemId || '',
-        id: '',
-        typeId: WORD_FORMS_PART_TYPEID,
-        roleId: this.roleId,
-        timeCreated: new Date(),
-        creatorId: '',
-        timeModified: new Date(),
-        userId: '',
-        forms: [],
-      };
+  private updateForm(model: WordFormsPart | undefined | null): void {
+    if (!model) {
+      this.form!.reset();
+      return;
     }
-    part!.forms = this.forms.value || [];
+    this.forms.setValue(model.forms || []);
+    this.form.markAsPristine();
+  }
+
+  protected override onDataSet(data?: EditedObject<WordFormsPart>): void {
+    // thesauri
+    if (data?.thesauri) {
+      this.updateThesauri(data.thesauri);
+    }
+
+    // form
+    this.updateForm(data?.value);
+  }
+
+  protected getValue(): WordFormsPart {
+    let part = this.getEditedPart(WORD_FORMS_PART_TYPEID) as WordFormsPart;
+    part.forms = this.forms.value || [];
     return part!;
   }
 

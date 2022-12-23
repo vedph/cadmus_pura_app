@@ -15,7 +15,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CadmusCoreModule, PendingChangesGuard } from '@myrmidon/cadmus-core';
 import { CadmusStateModule } from '@myrmidon/cadmus-state';
@@ -26,9 +25,10 @@ import {
   WORD_FORMS_PART_TYPEID,
   LEMMA_TAG_FRAGMENT_TYPEID,
 } from '@myrmidon/cadmus-pura-part-ui';
+import { TokenTextLayerPartFeatureComponent } from '@myrmidon/cadmus-part-general-pg';
+
 import { WordFormsPartFeatureComponent } from './word-forms-part-feature/word-forms-part-feature.component';
 import { LemmaTagFragmentFeatureComponent } from './lemma-tag-fragment-feature/lemma-tag-fragment-feature.component';
-import { TokenTextLayerPartFeatureComponent } from '@myrmidon/cadmus-part-general-pg';
 
 export const RouterModuleForChild = RouterModule.forChild([
   {
@@ -73,7 +73,6 @@ export const RouterModuleForChild = RouterModule.forChild([
     MatSnackBarModule,
     MatTabsModule,
     MatTooltipModule,
-    FlexLayoutModule,
     // Cadmus
     RouterModuleForChild,
     CadmusCoreModule,

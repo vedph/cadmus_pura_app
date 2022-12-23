@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthJwtService } from '@myrmidon/auth-jwt-login';
 
-import { ThesaurusEntry } from '@myrmidon/cadmus-core';
-import { ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
-import { deepCopy } from '@myrmidon/ng-tools';
+import { ThesauriSet, ThesaurusEntry } from '@myrmidon/cadmus-core';
+import { EditedObject, ModelEditorComponentBase } from '@myrmidon/cadmus-ui';
 
 import { LemmaTagFragment } from '../lemma-tag-fragment';
 
@@ -28,7 +33,7 @@ export class LemmaTagFragmentComponent
   public lemTagEntries: ThesaurusEntry[] | undefined;
 
   constructor(authService: AuthJwtService, formBuilder: FormBuilder) {
-    super(authService);
+    super(authService, formBuilder);
     // form
     this.value = formBuilder.control(null, [
       Validators.required,
@@ -39,49 +44,56 @@ export class LemmaTagFragmentComponent
       Validators.maxLength(100),
     ]);
     this.tag = formBuilder.control(null, Validators.maxLength(50));
+  }
 
-    this.form = formBuilder.group({
+  public ngOnInit(): void {
+    super.ngOnInit();
+  }
+
+  protected buildForm(formBuilder: FormBuilder): FormGroup | UntypedFormGroup {
+    return formBuilder.group({
       value: this.value,
       normValue: this.normValue,
       tag: this.tag,
     });
   }
 
-  public ngOnInit(): void {
-    this.initEditor();
+  private updateThesauri(thesauri: ThesauriSet): void {
+    const key = 'lemma-tags';
+    if (this.hasThesaurus(key)) {
+      this.lemTagEntries = thesauri[key].entries;
+    } else {
+      this.lemTagEntries = undefined;
+    }
   }
 
-  private updateForm(model: LemmaTagFragment): void {
+  private updateForm(model: LemmaTagFragment | undefined | null): void {
     if (!model) {
-      this.form!.reset();
+      this.form.reset();
       return;
     }
 
     this.value.setValue(model.value);
     this.normValue.setValue(model.normValue);
     this.tag.setValue(model.tag || null);
-    this.form!.markAsPristine();
+    this.form.markAsPristine();
   }
 
-  protected onModelSet(model: LemmaTagFragment): void {
-    this.updateForm(deepCopy(model));
-  }
-
-  protected onThesauriSet(): void {
-    const key = 'lemma-tags';
-    if (this.thesauri && this.thesauri[key]) {
-      this.lemTagEntries = this.thesauri[key].entries;
-    } else {
-      this.lemTagEntries = undefined;
+  protected override onDataSet(data?: EditedObject<LemmaTagFragment>): void {
+    // thesauri
+    if (data?.thesauri) {
+      this.updateThesauri(data.thesauri);
     }
+
+    // form
+    this.updateForm(data?.value);
   }
 
-  protected getModelFromForm(): LemmaTagFragment {
-    return {
-      location: this.model?.location ?? '',
-      value: this.value.value?.trim() || '',
-      normValue: this.normValue.value?.trim() || '',
-      tag: this.tag.value?.trim(),
-    };
+  protected getValue(): LemmaTagFragment {
+    const fr = this.getEditedFragment() as LemmaTagFragment;
+    fr.value = this.value.value?.trim() || '';
+    fr.normValue = this.normValue.value?.trim() || '';
+    fr.tag = this.tag.value?.trim();
+    return fr;
   }
 }

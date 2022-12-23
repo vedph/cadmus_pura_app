@@ -2,7 +2,8 @@
   <div>
     <!-- lid -->
     <mat-form-field>
-      <input matInput [formControl]="lid" placeholder="lid" />
+      <mat-label>LID</mat-label>
+      <input matInput [formControl]="lid" />
       <mat-error *ngIf="lid.errors?.required && (lid.dirty || lid.touched)"
         >lid required</mat-error
       >
@@ -13,7 +14,8 @@
     &nbsp;
     <!-- pos (bound) -->
     <mat-form-field *ngIf="posEntries?.length" style="width: 8em">
-      <mat-select [formControl]="pos" placeholder="POS">
+      <mat-label>POS</mat-label>
+      <mat-select [formControl]="pos">
         <mat-option *ngFor="let e of posEntries" [value]="e.id">{{
           e.value
         }}</mat-option>
@@ -25,7 +27,8 @@
 
     <!-- pos (free) -->
     <mat-form-field *ngIf="!posEntries?.length" style="width: 8em">
-      <input matInput [formControl]="pos" placeholder="POS" />
+      <mat-label>POS</mat-label>
+      <input matInput [formControl]="pos" />
       <mat-error *ngIf="pos.errors?.required && (pos.dirty || pos.touched)"
         >POS required</mat-error
       >
@@ -37,7 +40,8 @@
   <div>
     <!-- prelemma -->
     <mat-form-field style="width: 4em">
-      <input matInput [formControl]="prelemma" placeholder="pre" />
+      <mat-label>pre</mat-label>
+      <input matInput [formControl]="prelemma" />
       <mat-error
         *ngIf="
           prelemma.errors?.maxLength && (prelemma.dirty || prelemma.touched)
@@ -49,7 +53,8 @@
     &nbsp;
     <!-- lemma -->
     <mat-form-field>
-      <input matInput [formControl]="lemma" placeholder="lemma" />
+      <mat-label>lemma</mat-label>
+      <input matInput [formControl]="lemma" />
       <mat-error
         *ngIf="lemma.errors?.required && (lemma.dirty || lemma.touched)"
         >lemma required</mat-error
@@ -62,8 +67,9 @@
 
     &nbsp;
     <!-- postlemma -->
-    <mat-form-field style="width: 4em">
-      <input matInput [formControl]="postlemma" placeholder="post" />
+    <mat-form-field style="width: 5em">
+      <mat-label>post</mat-label>
+      <input matInput [formControl]="postlemma" />
       <mat-error
         *ngIf="
           postlemma.errors?.maxLength && (postlemma.dirty || postlemma.touched)
@@ -72,25 +78,16 @@
       >
     </mat-form-field>
     <!-- homograph -->
-    <mat-form-field style="width: 3em">
-      <input
-        matInput
-        type="number"
-        min="0"
-        [formControl]="homograph"
-        placeholder="hom."
-      />
+    <mat-form-field style="width: 4em">
+      <mat-label>hom.</mat-label>
+      <input matInput type="number" min="0" [formControl]="homograph" />
     </mat-form-field>
   </div>
   <div>
     <!-- note -->
     <mat-form-field class="long-text">
-      <textarea
-        matInput
-        rows="2"
-        [formControl]="note"
-        placeholder="note"
-      ></textarea>
+      <mat-label>note</mat-label>
+      <textarea matInput rows="2" [formControl]="note"></textarea>
       <mat-error *ngIf="note.errors?.maxLength && (note.dirty || note.touched)"
         >note too long</mat-error
       >
@@ -102,12 +99,12 @@
     <div>
       <button
         type="button"
-        mat-icon-button
+        mat-flat-button
         color="primary"
         (click)="addVariant()"
       >
         <mat-icon>add_circle</mat-icon>
-        add variant
+        variant
       </button>
     </div>
     <div
@@ -153,7 +150,8 @@
         <!-- child controls -->
         <!-- tag (bound) -->
         <mat-form-field *ngIf="varTagEntries?.length" style="width: 8em">
-          <mat-select formControlName="tag" placeholder="tag">
+          <mat-label>tag</mat-label>
+          <mat-select formControlName="tag">
             <mat-option *ngFor="let e of varTagEntries" [value]="e.id">{{
               e.value
             }}</mat-option>
@@ -161,7 +159,8 @@
         </mat-form-field>
         <!-- tag (free) -->
         <mat-form-field *ngIf="!varTagEntries?.length" style="width: 8em">
-          <input matInput formControlName="tag" placeholder="tag" />
+          <mat-label>tag</mat-label>
+          <input matInput formControlName="tag" />
           <mat-error
             *ngIf="
               $any(item)['controls'].tag.errors?.maxLength &&
@@ -174,7 +173,8 @@
         &nbsp;
         <!-- pos (bound) -->
         <mat-form-field *ngIf="posEntries?.length" style="width: 8em">
-          <mat-select formControlName="pos" placeholder="POS">
+          <mat-label>POS</mat-label>
+          <mat-select formControlName="pos">
             <mat-option *ngFor="let e of posEntries" [value]="e.id">{{
               e.value
             }}</mat-option>
@@ -190,7 +190,8 @@
         </mat-form-field>
         <!-- pos (free) -->
         <mat-form-field *ngIf="!posEntries?.length" style="width: 8em">
-          <input matInput formControlName="pos" placeholder="POS" />
+          <mat-label>POS</mat-label>
+          <input matInput formControlName="pos" />
           <mat-error
             *ngIf="
               $any(item)['controls'].pos.errors?.maxLength &&
@@ -203,7 +204,8 @@
         &nbsp;
         <!-- value -->
         <mat-form-field>
-          <input matInput formControlName="value" placeholder="value" />
+          <mat-label>value</mat-label>
+          <input matInput formControlName="value" />
           <mat-error
             *ngIf="
               $any(item)['controls'].value.errors?.required &&

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -38,20 +37,20 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { FlexLayoutModule } from '@angular/flex-layout';
-// Akita
-import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 // ngx monaco
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 // ngx markdown
 import { MarkdownModule } from 'ngx-markdown';
 
+// ELF
+import { devTools } from '@ngneat/elf-devtools';
+import { Actions } from '@ngneat/effects-ng';
+
 // myrmidon
+import { NgxDirtyCheckModule } from '@myrmidon/ngx-dirty-check';
 import { EnvServiceProvider, NgToolsModule } from '@myrmidon/ng-tools';
 import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
 import {
-  AuthJwtAdminGuardService,
-  AuthJwtGuardService,
   AuthJwtInterceptor,
   AuthJwtLoginModule,
 } from '@myrmidon/auth-jwt-login';
@@ -61,10 +60,9 @@ import { AuthJwtAdminModule } from '@myrmidon/auth-jwt-admin';
 import { CadmusRefsDocReferencesModule } from '@myrmidon/cadmus-refs-doc-references';
 import { CadmusRefsHistoricalDateModule } from '@myrmidon/cadmus-refs-historical-date';
 import { CadmusRefsExternalIdsModule } from '@myrmidon/cadmus-refs-external-ids';
+import { CadmusRefsLookupModule } from '@myrmidon/cadmus-refs-lookup';
 
 // cadmus libs
-import { PendingChangesGuard } from '@myrmidon/cadmus-core';
-import { EditorGuardService } from '@myrmidon/cadmus-api';
 import { CadmusCoreModule } from '@myrmidon/cadmus-core';
 import { CadmusUiModule } from '@myrmidon/cadmus-ui';
 import { CadmusTextBlockViewModule } from '@myrmidon/cadmus-text-block-view';
@@ -80,6 +78,16 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RegisterUserPageComponent } from './register-user-page/register-user-page.component';
 import { ManageUsersPageComponent } from './manage-users-page/manage-users-page.component';
 import { AppRoutingModule } from './app-routing.module';
+
+// https://ngneat.github.io/elf/docs/dev-tools/
+export function initElfDevTools(actions: Actions) {
+  return () => {
+    devTools({
+      name: 'Cadmus PURA',
+      actionsDispatcher: actions,
+    });
+  };
+}
 
 @NgModule({
   declarations: [
@@ -128,22 +136,21 @@ import { AppRoutingModule } from './app-routing.module';
     MatTooltipModule,
     MatToolbarModule,
     MatTreeModule,
-    FlexLayoutModule,
     // Monaco
     MonacoEditorModule.forRoot(),
     // markdown
     MarkdownModule.forRoot(),
-    // Akita
-    AkitaNgDevtools.forRoot(),
     // myrmidon
     NgToolsModule,
     NgMatToolsModule,
     AuthJwtLoginModule,
     AuthJwtAdminModule,
+    NgxDirtyCheckModule,
     // cadmus bricks
     CadmusRefsDocReferencesModule,
     CadmusRefsHistoricalDateModule,
     CadmusRefsExternalIdsModule,
+    CadmusRefsLookupModule,
     // Cadmus
     CadmusCoreModule,
     CadmusUiModule,
@@ -179,6 +186,13 @@ import { AppRoutingModule } from './app-routing.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthJwtInterceptor,
       multi: true,
+    },
+    // ELF dev tools
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: initElfDevTools,
+      deps: [Actions],
     },
   ],
   bootstrap: [AppComponent],

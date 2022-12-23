@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EditLemmaTagFragmentQuery } from './edit-lemma-tag-fragment.query';
-import { EditLemmaTagFragmentService } from './edit-lemma-tag-fragment.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import {
-  EditItemQuery,
-  EditItemService,
-  EditLayerPartQuery,
-  EditLayerPartService,
   EditFragmentFeatureBase,
+  FragmentEditorService,
 } from '@myrmidon/cadmus-state';
 import { LibraryRouteService } from '@myrmidon/cadmus-core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pura-lemma-tag-fragment-feature',
@@ -19,34 +15,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LemmaTagFragmentFeatureComponent
   extends EditFragmentFeatureBase
-  implements OnInit {
+  implements OnInit
+{
   constructor(
     router: Router,
     route: ActivatedRoute,
     snackbar: MatSnackBar,
-    editFrQuery: EditLemmaTagFragmentQuery,
-    editFrService: EditLemmaTagFragmentService,
-    editItemQuery: EditItemQuery,
-    editItemService: EditItemService,
-    editLayersQuery: EditLayerPartQuery,
-    editLayersService: EditLayerPartService,
+    editorService: FragmentEditorService,
     libraryRouteService: LibraryRouteService
   ) {
-    super(
-      router,
-      route,
-      snackbar,
-      editFrQuery,
-      editFrService,
-      editItemQuery,
-      editItemService,
-      editLayersQuery,
-      editLayersService,
-      libraryRouteService
-    );
+    super(router, route, snackbar, editorService, libraryRouteService);
   }
 
-  ngOnInit() {
-    this.initEditor(['lemma-tags']);
+  protected override getReqThesauriIds(): string[] {
+    return ['lemma-tags'];
   }
 }

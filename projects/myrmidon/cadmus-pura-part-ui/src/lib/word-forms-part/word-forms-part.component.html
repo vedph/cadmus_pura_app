@@ -1,5 +1,5 @@
-<form [formGroup]="form!" (submit)="save()">
-  <mat-card>
+<form [formGroup]="form" (submit)="save()">
+  <mat-card appearance="outlined">
     <mat-card-header>
       <div mat-card-avatar>
         <mat-icon>picture_in_picture</mat-icon>
@@ -12,11 +12,11 @@
           <div>
             <button
               type="button"
-              mat-icon-button
+              mat-flat-button
               color="primary"
               (click)="addForm()"
             >
-              <mat-icon>add_circle</mat-icon> add form
+              <mat-icon>add_circle</mat-icon> form
             </button>
           </div>
           <table *ngIf="forms?.value?.length">

@@ -6,7 +6,7 @@ import {
   User,
 } from '@myrmidon/auth-jwt-login';
 import { Thesaurus, ThesaurusEntry } from '@myrmidon/cadmus-core';
-import { AppService, AppQuery } from '@myrmidon/cadmus-state';
+import { AppRepository } from '@myrmidon/cadmus-state';
 import { EnvService } from '@myrmidon/ng-tools';
 
 @Component({
@@ -25,8 +25,7 @@ export class AppComponent implements OnInit {
     private _itemBrowserKeys: { [key: string]: string },
     private _authService: AuthJwtService,
     private _gravatarService: GravatarService,
-    private _appService: AppService,
-    private _appQuery: AppQuery,
+    private _repository: AppRepository,
     env: EnvService
   ) {
     this.user = undefined;
@@ -44,15 +43,15 @@ export class AppComponent implements OnInit {
       this.user = user || undefined;
       // load the general app state just once
       if (user) {
-        this._appService.load();
+        this._repository.load();
       }
     });
 
-    this._appQuery
-      .selectItemBrowserThesaurus()
-      .subscribe((thesaurus: Thesaurus | undefined) => {
+    this._repository.itemBrowserThesaurus$.subscribe(
+      (thesaurus: Thesaurus | undefined) => {
         this.itemBrowsers = thesaurus ? thesaurus.entries : null;
-      });
+      }
+    );
   }
 
   public getItemBrowserRoute(id: string): string {

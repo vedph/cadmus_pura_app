@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {
-  EditItemQuery,
-  EditItemService,
-  EditPartFeatureBase,
-} from '@myrmidon/cadmus-state';
-
-import { EditWordFormsPartService } from './edit-word-forms-part.service';
-import { EditWordFormsPartQuery } from './edit-word-forms-part.query';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { ItemService, ThesaurusService } from '@myrmidon/cadmus-api';
+import { EditPartFeatureBase, PartEditorService } from '@myrmidon/cadmus-state';
 
 @Component({
   selector: 'pura-word-forms-part-feature',
@@ -18,28 +13,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class WordFormsPartFeatureComponent
   extends EditPartFeatureBase
-  implements OnInit {
+  implements OnInit
+{
   constructor(
     router: Router,
     route: ActivatedRoute,
     snackbar: MatSnackBar,
-    editPartQuery: EditWordFormsPartQuery,
-    editPartService: EditWordFormsPartService,
-    editItemQuery: EditItemQuery,
-    editItemService: EditItemService
+    itemService: ItemService,
+    thesaurusService: ThesaurusService,
+    editorService: PartEditorService
   ) {
     super(
       router,
       route,
       snackbar,
-      editPartQuery,
-      editPartService,
-      editItemQuery,
-      editItemService
+      itemService,
+      thesaurusService,
+      editorService
     );
   }
 
-  public ngOnInit(): void {
-    this.initEditor(['word-form-pos', 'word-form-variant-tags']);
+  protected override getReqThesauriIds(): string[] {
+    return ['word-form-pos', 'word-form-variant-tags'];
   }
 }
