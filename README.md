@@ -15,6 +15,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Histor
 
+- 2022-11-10: updated Angular and packages.
 - 2022-10-11:
   - updated packages.
   - added preview.
