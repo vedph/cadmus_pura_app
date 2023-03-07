@@ -25,6 +25,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+- 2023-03-07: updated Angular and packages.
 - 2023-02-06: updated Angular and packages.
 
 ### 2.0.0

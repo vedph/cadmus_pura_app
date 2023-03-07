@@ -41,7 +41,11 @@
       <span class="tb-fill-remaining-space"></span>
 
       <div *ngIf="logged" fxLayout="row" fxLayoutAlign="start center">
-        <img [src]="getGravatarUrl(user?.email, 32)" [alt]="user?.userName" />
+        <img
+          alt="avatar"
+          [src]="getGravatarUrl(user?.email, 32)"
+          [alt]="user?.userName"
+        />
         <mat-icon
           class="small-icon"
           *ngIf="user && user?.roles?.includes('admin')"
@@ -76,12 +80,14 @@
         </mat-menu>
       </div>
 
-      <div *ngIf="!logged">
-        <a mat-button routerLink="/login">Login</a>
-      </div>
-      <div *ngIf="logged">
-        <a mat-button (click)="logout()">Logout</a>
-      </div>
+      <!-- login -->
+      <button *ngIf="!logged" mat-icon-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+      </button>
+      <!-- logout -->
+      <button *ngIf="logged" mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
     </mat-toolbar>
   </header>
 
@@ -99,7 +105,7 @@
       </p>
       <p>
         <a href="mailto:olga.tribulato@unive.it">Olga Tribulato</a>,
-        <a href="https://www.unive.it/pag/27720" target="_blank"
+        <a rel="noopener" href="https://www.unive.it/pag/27720" target="_blank"
           >Department of Humanities</a
         >, Malcanton Marcorà, Dorsoduro 3484/D, Calle Contarini, 30123 Venice.
       </p>
