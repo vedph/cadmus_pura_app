@@ -1,6 +1,6 @@
 {
   "name": "@myrmidon/cadmus-pura-part-ui",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Cadmus - PURA UI components.",
   "keywords": [
     "Cadmus"
@@ -14,11 +14,10 @@
     "name": "Daniele Fusi"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0",
-    "@angular/core": "^15.0.0",
-    "@myrmidon/cadmus-core": "^2.0.1"
+    "@angular/common": "^16.0.0",
+    "@angular/core": "^16.0.0"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.5.0"
   }
 }
