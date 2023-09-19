@@ -6,7 +6,7 @@
       /></span>
       <a mat-button routerLink="/home">Cadmus PURA</a>
 
-      <button
+      <button type="button"
         mat-button
         [matMenuTriggerFor]="itemMenu"
         *ngIf="logged && itemBrowsers"
@@ -61,13 +61,13 @@
           >feedback</mat-icon
         >
         <!-- user menu -->
-        <button mat-button [matMenuTriggerFor]="userMenu">User</button>
+        <button type="button" mat-button [matMenuTriggerFor]="userMenu">User</button>
         <mat-menu #userMenu>
           <a mat-menu-item routerLink="/reset-password">Reset password</a>
         </mat-menu>
 
         <!-- admin menu -->
-        <button
+        <button type="button"
           *ngIf="user && user.roles.includes('admin')"
           mat-button
           [matMenuTriggerFor]="adminMenu"
@@ -81,11 +81,11 @@
       </div>
 
       <!-- login -->
-      <button *ngIf="!logged" mat-icon-button routerLink="/login">
+      <button type="button" *ngIf="!logged" mat-icon-button routerLink="/login">
         <mat-icon>login</mat-icon>
       </button>
       <!-- logout -->
-      <button *ngIf="logged" mat-icon-button (click)="logout()">
+      <button type="button" *ngIf="logged" mat-icon-button (click)="logout()">
         <mat-icon>logout</mat-icon>
       </button>
     </mat-toolbar>

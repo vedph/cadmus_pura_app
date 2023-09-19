@@ -78,6 +78,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RegisterUserPageComponent } from './register-user-page/register-user-page.component';
 import { ManageUsersPageComponent } from './manage-users-page/manage-users-page.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
 
 // https://ngneat.github.io/elf/docs/dev-tools/
 export function initElfDevTools(actions: Actions) {
@@ -151,6 +152,7 @@ export function initElfDevTools(actions: Actions) {
     CadmusRefsHistoricalDateModule,
     CadmusRefsExternalIdsModule,
     CadmusRefsLookupModule,
+    CadmusUiFlagsPickerModule,
     // Cadmus
     CadmusCoreModule,
     CadmusUiModule,
