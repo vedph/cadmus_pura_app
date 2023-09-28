@@ -25,6 +25,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+- 2023-09-27: updated Angular and packages.
 - 2023-09-19: updated Angular and packages. Docker script moved to PostgreSQL.
 - 2023-03-07: updated Angular and packages.
 - 2023-02-06: updated Angular and packages.
