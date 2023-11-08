@@ -129,16 +129,21 @@ const routes: Routes = [
       ),
     canActivate: [AuthJwtGuardService],
   },
+  // cadmus - flags
+  {
+    path: 'flags',
+    loadChildren: () =>
+      import('@myrmidon/cadmus-flags-pg').then(
+        (module) => module.CadmusFlagsPgModule
+      ),
+  },
   // fallback
   { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {
-      initialNavigation: 'enabledBlocking',
-      useHash: true,
-    }),
+    RouterModule.forRoot(routes),
   ],
   exports: [RouterModule],
 })

@@ -42,10 +42,6 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
 // ngx markdown
 import { MarkdownModule } from 'ngx-markdown';
 
-// ELF
-import { devTools } from '@ngneat/elf-devtools';
-import { Actions } from '@ngneat/effects-ng';
-
 // myrmidon
 import { NgxDirtyCheckModule } from '@myrmidon/ngx-dirty-check';
 import { EnvServiceProvider, NgToolsModule } from '@myrmidon/ng-tools';
@@ -79,16 +75,6 @@ import { RegisterUserPageComponent } from './register-user-page/register-user-pa
 import { ManageUsersPageComponent } from './manage-users-page/manage-users-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
-
-// https://ngneat.github.io/elf/docs/dev-tools/
-export function initElfDevTools(actions: Actions) {
-  return () => {
-    devTools({
-      name: 'Cadmus PURA',
-      actionsDispatcher: actions,
-    });
-  };
-}
 
 @NgModule({
   declarations: [
@@ -188,13 +174,6 @@ export function initElfDevTools(actions: Actions) {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthJwtInterceptor,
       multi: true,
-    },
-    // ELF dev tools
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: initElfDevTools,
-      deps: [Actions],
     },
   ],
   bootstrap: [AppComponent],

@@ -25,6 +25,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+- 2023-11-08:
+  - updated Angular and packages.
+  - removed ELF.
+  - opted in for flags editor.
+  - opted in for thesaurus import.
 - 2023-09-27: updated Angular and packages.
 - 2023-09-19: updated Angular and packages. Docker script moved to PostgreSQL.
 - 2023-03-07: updated Angular and packages.
