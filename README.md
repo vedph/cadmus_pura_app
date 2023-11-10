@@ -25,6 +25,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+- 2023-11-10: ⚠️ upgraded to Angular 17.
 - 2023-11-08:
   - updated Angular and packages.
   - removed ELF.

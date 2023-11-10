@@ -84,18 +84,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cadmus-pura-app:build"
+            "buildTarget": "cadmus-pura-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cadmus-pura-app:build:production"
+              "buildTarget": "cadmus-pura-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cadmus-pura-app:build"
+            "buildTarget": "cadmus-pura-app:build"
           }
         },
         "test": {
