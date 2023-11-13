@@ -97,22 +97,6 @@ const routes: Routes = [
     canActivate: [AuthJwtGuardService],
   },
   {
-    path: 'items/:iid/tgr-gr',
-    loadChildren: () =>
-      import('@myrmidon/cadmus-tgr-part-gr-pg').then(
-        (module) => module.CadmusTgrPartGrPgModule
-      ),
-    canActivate: [AuthJwtGuardService],
-  },
-  {
-    path: 'items/:iid/tgr-ms',
-    loadChildren: () =>
-      import('@myrmidon/cadmus-tgr-part-ms-pg').then(
-        (module) => module.CadmusTgrPartMsPgModule
-      ),
-    canActivate: [AuthJwtGuardService],
-  },
-  {
     path: 'items/:iid/pura',
     loadChildren: () =>
       import('@myrmidon/cadmus-pura-part-pg').then(

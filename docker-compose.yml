@@ -29,7 +29,7 @@ services:
 
   # API
   cadmus-pura-api:
-    image: vedph2020/cadmus-pura-api:3.0.1
+    image: vedph2020/cadmus-pura-api:4.0.0
     container_name: cadmus-pura-api
     ports:
       - 60849:80
@@ -50,7 +50,7 @@ services:
 
   # app
   cadmus-pura-web:
-    image: vedph2020/cadmus-pura-app:2.0.0
+    image: vedph2020/cadmus-pura-app:3.0.0
     container_name: cadmus-pura-app
     ports:
       - 4200:80
