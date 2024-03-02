@@ -26,6 +26,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+- 2024-03-02: updated Angular and packages.
+
 ### 3.0.0
 
 - 2023-11-13: ⚠️ removed TGR dependencies.
