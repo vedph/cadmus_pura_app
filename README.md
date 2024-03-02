@@ -1,21 +1,10 @@
 # Cadmus PURA App
 
-- [Cadmus PURA App](#cadmus-pura-app)
-  - [Production (VeDPH)](#production-vedph)
-  - [History](#history)
-    - [3.0.0](#300)
-    - [2.0.0](#200)
-    - [1.2.0](#120)
-    - [1.1.6](#116)
-    - [1.1.5](#115)
-    - [1.1.4](#114)
-    - [1.1.2](#112)
-
-Quick Docker image build:
+🐋 Quick Docker image build:
 
 1. `npm run build-lib`
-2. `ng build --configuration production`
-3. `docker build . -t vedph2020/cadmus-pura-app:3.0.0 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
+2. update `env.js` and `ng build --configuration production`
+3. `docker build . -t vedph2020/cadmus-pura-app:3.0.1 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
@@ -25,6 +14,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 2. `docker build . -t vedph2020/cadmus-pura-app:1.2.0-prod`
 
 ## History
+
+### 3.0.1
 
 - 2024-03-02: updated Angular and packages.
 
