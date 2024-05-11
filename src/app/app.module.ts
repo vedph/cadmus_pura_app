@@ -1,8 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+  HttpClientJsonpModule,
+} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -37,9 +41,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-// ngx monaco
-import { MonacoEditorModule } from 'ngx-monaco-editor';
-// ngx markdown
+
+// vendor
+import { NgeMonacoModule } from '@cisstech/nge/monaco';
 import { MarkdownModule } from 'ngx-markdown';
 
 // myrmidon
@@ -53,15 +57,10 @@ import {
 import { AuthJwtAdminModule } from '@myrmidon/auth-jwt-admin';
 
 // cadmus bricks
-import { CadmusRefsDocReferencesModule } from '@myrmidon/cadmus-refs-doc-references';
-import { CadmusRefsHistoricalDateModule } from '@myrmidon/cadmus-refs-historical-date';
-import { CadmusRefsExternalIdsModule } from '@myrmidon/cadmus-refs-external-ids';
-import { CadmusRefsLookupModule } from '@myrmidon/cadmus-refs-lookup';
 
 // cadmus libs
 import { CadmusCoreModule } from '@myrmidon/cadmus-core';
 import { CadmusUiModule } from '@myrmidon/cadmus-ui';
-import { CadmusTextBlockViewModule } from '@myrmidon/cadmus-text-block-view';
 import { CadmusPreviewUiModule } from '@myrmidon/cadmus-preview-ui';
 import { CadmusPreviewPgModule } from '@myrmidon/cadmus-preview-pg';
 
@@ -74,7 +73,26 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RegisterUserPageComponent } from './register-user-page/register-user-page.component';
 import { ManageUsersPageComponent } from './manage-users-page/manage-users-page.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
+import { DocReferencesComponent } from '@myrmidon/cadmus-refs-doc-references';
+import { HistoricalDateComponent } from '@myrmidon/cadmus-refs-historical-date';
+import { ExternalIdsComponent } from '@myrmidon/cadmus-refs-external-ids';
+import {
+  PROXY_INTERCEPTOR_OPTIONS,
+  RefLookupComponent,
+} from '@myrmidon/cadmus-refs-lookup';
+import { FlagsPickerComponent } from '@myrmidon/cadmus-ui-flags-picker';
+import { TextBlockViewComponent } from '@myrmidon/cadmus-text-block-view';
+import { TxtEmojiCtePlugin } from '@myrmidon/cadmus-text-ed-txt';
+import {
+  MdBoldCtePlugin,
+  MdItalicCtePlugin,
+  MdLinkCtePlugin,
+} from '@myrmidon/cadmus-text-ed-md';
+import {
+  CADMUS_TEXT_ED_BINDINGS_TOKEN,
+  CADMUS_TEXT_ED_SERVICE_OPTIONS_TOKEN,
+} from '@myrmidon/cadmus-text-ed';
+import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
 
 @NgModule({
   declarations: [
@@ -89,6 +107,7 @@ import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientJsonpModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -124,7 +143,7 @@ import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
     MatToolbarModule,
     MatTreeModule,
     // Monaco
-    MonacoEditorModule.forRoot(),
+    NgeMonacoModule.forRoot({}),
     // markdown
     MarkdownModule.forRoot(),
     // myrmidon
@@ -134,15 +153,15 @@ import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
     AuthJwtAdminModule,
     NgxDirtyCheckModule,
     // cadmus bricks
-    CadmusRefsDocReferencesModule,
-    CadmusRefsHistoricalDateModule,
-    CadmusRefsExternalIdsModule,
-    CadmusRefsLookupModule,
-    CadmusUiFlagsPickerModule,
+    DocReferencesComponent,
+    HistoricalDateComponent,
+    ExternalIdsComponent,
+    RefLookupComponent,
+    FlagsPickerComponent,
+    TextBlockViewComponent,
     // Cadmus
     CadmusCoreModule,
     CadmusUiModule,
-    CadmusTextBlockViewModule,
     CadmusPreviewUiModule,
     CadmusPreviewPgModule,
     NgToolsModule,
@@ -174,6 +193,66 @@ import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthJwtInterceptor,
       multi: true,
+    },
+    // text editing plugins
+    MdBoldCtePlugin,
+    MdItalicCtePlugin,
+    TxtEmojiCtePlugin,
+    MdLinkCtePlugin,
+    // provide a factory so that plugins can be instantiated via DI
+    {
+      provide: CADMUS_TEXT_ED_SERVICE_OPTIONS_TOKEN,
+      useFactory: (
+        mdBoldCtePlugin: MdBoldCtePlugin,
+        mdItalicCtePlugin: MdItalicCtePlugin,
+        mdEmojiCtePlugin: TxtEmojiCtePlugin,
+        mdLinkCtePlugin: MdLinkCtePlugin
+      ) => {
+        return {
+          plugins: [
+            mdBoldCtePlugin,
+            mdItalicCtePlugin,
+            mdEmojiCtePlugin,
+            mdLinkCtePlugin,
+          ],
+        };
+      },
+      deps: [
+        MdBoldCtePlugin,
+        MdItalicCtePlugin,
+        TxtEmojiCtePlugin,
+        MdLinkCtePlugin,
+      ],
+    },
+    // monaco bindings for plugins
+    // 2080 = monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyB;
+    // 2087 = monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyI;
+    // 2083 = monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyE;
+    // 2090 = monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyL;
+    {
+      provide: CADMUS_TEXT_ED_BINDINGS_TOKEN,
+      useValue: {
+        2080: 'md.bold', // Ctrl+B
+        2087: 'md.italic', // Ctrl+I
+        2083: 'txt.emoji', // Ctrl+E
+        2090: 'md.link', // Ctrl+L
+      },
+    },
+    // GeoNames lookup (see environment.prod.ts for the username)
+    {
+      provide: GEONAMES_USERNAME_TOKEN,
+      useValue: 'myrmex',
+    },
+    // proxy
+    {
+      provide: PROXY_INTERCEPTOR_OPTIONS,
+      useValue: {
+        proxyUrl: (window as any).__env?.apiUrl + 'proxy',
+        urls: [
+          'http://lookup.dbpedia.org/api/search',
+          'http://lookup.dbpedia.org/api/prefix',
+        ],
+      },
     },
   ],
   bootstrap: [AppComponent],

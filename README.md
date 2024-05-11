@@ -4,7 +4,7 @@
 
 1. `npm run build-lib`
 2. update `env.js` and `ng build --configuration production`
-3. `docker build . -t vedph2020/cadmus-pura-app:3.0.1 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
+3. `docker build . -t vedph2020/cadmus-pura-app:4.0.0 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
@@ -14,6 +14,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 2. `docker build . -t vedph2020/cadmus-pura-app:1.2.0-prod`
 
 ## History
+
+### 4.0.0
+
+- 2024-05-11:
+  - updated Angular and packages.
+  - ⚠️ upgraded to [bricks V2](https://github.com/vedph/cadmus-bricks-shell-v2).
+  - replaced Monaco wrapper.
+  - added editor plugins and lookup for VIAF and GeoNames.
 
 ### 3.0.1
 

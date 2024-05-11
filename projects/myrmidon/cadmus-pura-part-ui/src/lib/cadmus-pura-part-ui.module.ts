@@ -18,7 +18,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgToolsModule } from '@myrmidon/ng-tools';
 import { CadmusUiModule } from '@myrmidon/cadmus-ui';
 import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
-import { CadmusUiFlagsPickerModule } from '@myrmidon/cadmus-ui-flags-picker';
+import { FlagsPickerComponent } from '@myrmidon/cadmus-ui-flags-picker';
 
 import { WordFormsPartComponent } from './word-forms-part/word-forms-part.component';
 import { WordFormComponent } from './word-form/word-form.component';
@@ -48,8 +48,8 @@ import { LemmaTagFragmentComponent } from './lemma-tag-fragment/lemma-tag-fragme
     MatTabsModule,
     MatTooltipModule,
     // Cadmus
+    FlagsPickerComponent,
     CadmusUiModule,
-    CadmusUiFlagsPickerModule,
     NgToolsModule,
     NgMatToolsModule,
   ],

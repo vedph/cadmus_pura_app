@@ -10,6 +10,7 @@ import {
   NOTE_PART_TYPEID,
   TOKEN_TEXT_PART_TYPEID,
   COMMENT_FRAGMENT_TYPEID,
+  CHRONOTOPES_PART_TYPEID,
 } from '@myrmidon/cadmus-part-general-ui';
 
 // philology
@@ -44,6 +45,9 @@ export const PART_EDITOR_KEYS: PartEditorKeys = {
     part: GENERAL,
   },
   [HISTORICAL_DATE_PART_TYPEID]: {
+    part: GENERAL,
+  },
+  [CHRONOTOPES_PART_TYPEID]: {
     part: GENERAL,
   },
   [METADATA_PART_TYPEID]: {
