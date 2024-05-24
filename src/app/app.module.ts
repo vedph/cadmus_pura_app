@@ -3,9 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
-  HttpClientModule,
-  HTTP_INTERCEPTORS,
-  HttpClientJsonpModule,
+  provideHttpClient,
+  withInterceptors,
+  withJsonpSupport,
 } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -47,12 +47,12 @@ import { NgeMonacoModule } from '@cisstech/nge/monaco';
 import { MarkdownModule } from 'ngx-markdown';
 
 // myrmidon
-import { NgxDirtyCheckModule } from '@myrmidon/ngx-dirty-check';
 import { EnvServiceProvider, NgToolsModule } from '@myrmidon/ng-tools';
 import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
 import {
   AuthJwtInterceptor,
   AuthJwtLoginModule,
+  authJwtInterceptor,
 } from '@myrmidon/auth-jwt-login';
 import { AuthJwtAdminModule } from '@myrmidon/auth-jwt-admin';
 
@@ -103,12 +103,11 @@ import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
     RegisterUserPageComponent,
     ResetPasswordComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientJsonpModule,
-    HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
     // material
@@ -151,7 +150,6 @@ import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
     NgMatToolsModule,
     AuthJwtLoginModule,
     AuthJwtAdminModule,
-    NgxDirtyCheckModule,
     // cadmus bricks
     DocReferencesComponent,
     HistoricalDateComponent,
@@ -168,6 +166,10 @@ import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
     NgMatToolsModule,
   ],
   providers: [
+    provideHttpClient(
+      withInterceptors([authJwtInterceptor]),
+      withJsonpSupport()
+    ),
     EnvServiceProvider,
     // parts and fragments type IDs to editor group keys mappings
     // https://github.com/nrwl/nx/issues/208#issuecomment-384102058
@@ -186,13 +188,6 @@ import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
     {
       provide: 'itemBrowserKeys',
       useValue: ITEM_BROWSER_KEYS,
-    },
-    // HTTP interceptor
-    // https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthJwtInterceptor,
-      multi: true,
     },
     // text editing plugins
     MdBoldCtePlugin,
@@ -255,6 +250,5 @@ import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
       },
     },
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
