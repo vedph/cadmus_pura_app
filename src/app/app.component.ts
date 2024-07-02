@@ -13,6 +13,7 @@ import { AppRepository } from '@myrmidon/cadmus-state';
 import { GeoNamesRefLookupService } from '@myrmidon/cadmus-refs-geonames-lookup';
 import { ViafRefLookupService } from '@myrmidon/cadmus-refs-viaf-lookup';
 import { DbpediaRefLookupService } from '@myrmidon/cadmus-refs-dbpedia-lookup';
+import { GeoJsonFeature, WhgRefLookupService } from '@myrmidon/cadmus-refs-whg-lookup';
 
 @Component({
   selector: 'cadmus-root',
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit {
     storage: RamStorageService,
     viaf: ViafRefLookupService,
     dbpedia: DbpediaRefLookupService,
-    geonames: GeoNamesRefLookupService
+    geonames: GeoNamesRefLookupService,
+    whg: WhgRefLookupService
   ) {
     this.user = undefined;
     this.logged = false;
@@ -70,6 +72,15 @@ export class AppComponent implements OnInit {
         service: geonames,
         itemIdGetter: (item: any) => item?.geonameId,
         itemLabelGetter: (item: any) => item?.toponymName,
+      },
+      {
+        name: 'whg',
+        iconUrl: '/assets/img/whg128.png',
+        description: 'World Historical Gazetteer',
+        label: 'ID',
+        service: whg,
+        itemIdGetter: (item: GeoJsonFeature) => item?.properties.place_id,
+        itemLabelGetter: (item: GeoJsonFeature) => item?.properties.title,
       },
     ] as RefLookupConfig[]);
   }

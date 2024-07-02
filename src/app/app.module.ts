@@ -50,7 +50,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { EnvServiceProvider, NgToolsModule } from '@myrmidon/ng-tools';
 import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
 import {
-  AuthJwtInterceptor,
   AuthJwtLoginModule,
   authJwtInterceptor,
 } from '@myrmidon/auth-jwt-login';
@@ -93,6 +92,7 @@ import {
   CADMUS_TEXT_ED_SERVICE_OPTIONS_TOKEN,
 } from '@myrmidon/cadmus-text-ed';
 import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
+import { WHG_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-whg-lookup';
 
 @NgModule({
   declarations: [
@@ -236,6 +236,10 @@ import { GEONAMES_USERNAME_TOKEN } from '@myrmidon/cadmus-refs-geonames-lookup';
     // GeoNames lookup (see environment.prod.ts for the username)
     {
       provide: GEONAMES_USERNAME_TOKEN,
+      useValue: 'myrmex',
+    },
+    {
+      provide: WHG_USERNAME_TOKEN,
       useValue: 'myrmex',
     },
     // proxy
