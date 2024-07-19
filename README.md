@@ -15,6 +15,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+- 2024-07-19:
+  - updated Angular and packages.
+  - [refactored Gravatar](https://myrmex.github.io/overview/cadmus/dev/history/f-gravatar/).
 - 2024-07-02:
   - updated Angular and packages.
   - added WHG lookup.
