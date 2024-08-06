@@ -4,7 +4,7 @@
 
 1. `npm run build-lib`
 2. update `env.js` and `ng build --configuration production`
-3. `docker build . -t vedph2020/cadmus-pura-app:4.0.0 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
+3. `docker build . -t vedph2020/cadmus-pura-app:4.0.1 -t vedph2020/cadmus-pura-app:latest` (replace with the current version).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
@@ -15,6 +15,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+### 4.0.1
+
+- 2024-08-06: updated Angular and packages.
 - 2024-07-26: updated Angular and packages.
 - 2024-07-19:
   - updated Angular and packages.
