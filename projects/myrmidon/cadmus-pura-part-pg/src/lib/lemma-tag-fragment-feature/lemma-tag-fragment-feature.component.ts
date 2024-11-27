@@ -12,6 +12,7 @@ import { LibraryRouteService } from '@myrmidon/cadmus-core';
   selector: 'pura-lemma-tag-fragment-feature',
   templateUrl: './lemma-tag-fragment-feature.component.html',
   styleUrls: ['./lemma-tag-fragment-feature.component.css'],
+  standalone: false,
 })
 export class LemmaTagFragmentFeatureComponent
   extends EditFragmentFeatureBase

@@ -15,6 +15,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## History
 
+### 5.0.0
+
+- 2024-11-27: ⚠️ upgraded to .NET 9.
 - 2024-08-09: updated Angular and packages.
 
 ### 4.0.1

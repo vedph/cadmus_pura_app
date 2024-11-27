@@ -21,6 +21,7 @@ import { LemmaTagFragment } from '../lemma-tag-fragment';
   selector: 'pura-lemma-tag-fragment',
   templateUrl: './lemma-tag-fragment.component.html',
   styleUrls: ['./lemma-tag-fragment.component.css'],
+  standalone: false,
 })
 export class LemmaTagFragmentComponent
   extends ModelEditorComponentBase<LemmaTagFragment>

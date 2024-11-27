@@ -13,6 +13,7 @@ import { VariantForm, WordForm } from '../word-forms-part';
   selector: 'pura-word-form',
   templateUrl: './word-form.component.html',
   styleUrls: ['./word-form.component.css'],
+  standalone: false,
 })
 export class WordFormComponent implements OnInit {
   private _model: WordForm | undefined;

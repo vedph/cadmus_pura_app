@@ -10,6 +10,7 @@ import { EditPartFeatureBase, PartEditorService } from '@myrmidon/cadmus-state';
   selector: 'pura-word-forms-part-feature',
   templateUrl: './word-forms-part-feature.component.html',
   styleUrls: ['./word-forms-part-feature.component.css'],
+  standalone: false,
 })
 export class WordFormsPartFeatureComponent
   extends EditPartFeatureBase

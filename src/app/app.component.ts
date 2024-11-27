@@ -13,12 +13,16 @@ import { AppRepository } from '@myrmidon/cadmus-state';
 import { GeoNamesRefLookupService } from '@myrmidon/cadmus-refs-geonames-lookup';
 import { ViafRefLookupService } from '@myrmidon/cadmus-refs-viaf-lookup';
 import { DbpediaRefLookupService } from '@myrmidon/cadmus-refs-dbpedia-lookup';
-import { GeoJsonFeature, WhgRefLookupService } from '@myrmidon/cadmus-refs-whg-lookup';
+import {
+  GeoJsonFeature,
+  WhgRefLookupService,
+} from '@myrmidon/cadmus-refs-whg-lookup';
 
 @Component({
   selector: 'cadmus-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   public user?: User;

@@ -27,6 +27,7 @@ import {
   selector: 'pura-word-forms-part',
   templateUrl: './word-forms-part.component.html',
   styleUrls: ['./word-forms-part.component.css'],
+  standalone: false,
 })
 export class WordFormsPartComponent
   extends ModelEditorComponentBase<WordFormsPart>
