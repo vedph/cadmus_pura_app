@@ -7,96 +7,99 @@
       <mat-card-title>Word Forms Part</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-tab-group [(selectedIndex)]="tabIndex">
-        <mat-tab label="forms">
-          <div>
-            <button
-              type="button"
-              mat-flat-button
-              class="mat-primary"
-              (click)="addForm()"
-            >
-              <mat-icon>add_circle</mat-icon> form
-            </button>
-          </div>
-          <table *ngIf="forms?.value?.length">
-            <thead>
-              <tr>
-                <th></th>
-                <th>POS</th>
-                <th>form</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="
-                  let form of forms?.value;
-                  let i = index;
-                  let first = first;
-                  let last = last
-                "
+      <div>
+        <button
+          type="button"
+          mat-flat-button
+          class="mat-primary"
+          (click)="addForm()"
+        >
+          <mat-icon>add_circle</mat-icon> form
+        </button>
+      </div>
+      <table *ngIf="forms?.value?.length">
+        <thead>
+          <tr>
+            <th></th>
+            <th>POS</th>
+            <th>form</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let form of forms?.value;
+              let i = index;
+              let first = first;
+              let last = last
+            "
+            [class.selected]="editedForm === form"
+          >
+            <td class="fit-width">
+              <button
+                type="button"
+                mat-icon-button
+                matTooltip="Edit this form"
+                (click)="editForm(i)"
               >
-                <td>
-                  <button
-                    type="button"
-                    mat-icon-button
-                    matTooltip="Edit this form"
-                    (click)="editForm(i)"
-                  >
-                    <mat-icon class="mat-primary">edit</mat-icon>
-                  </button>
-                  <button
-                    type="button"
-                    mat-icon-button
-                    matTooltip="Move this form up"
-                    [disabled]="first"
-                    (click)="moveFormUp(i)"
-                  >
-                    <mat-icon>arrow_upward</mat-icon>
-                  </button>
-                  <button
-                    type="button"
-                    mat-icon-button
-                    matTooltip="Move this form down"
-                    [disabled]="last"
-                    (click)="moveFormDown(i)"
-                  >
-                    <mat-icon>arrow_downward</mat-icon>
-                  </button>
-                  <button
-                    type="button"
-                    mat-icon-button
-                    matTooltip="Delete this form"
-                    (click)="deleteForm(i)"
-                  >
-                    <mat-icon class="mat-warn">remove_circle</mat-icon>
-                  </button>
-                </td>
-                <td>{{ form.pos }}</td>
-                <td>{{ formToString(form) }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </mat-tab>
+                <mat-icon class="mat-primary">edit</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                matTooltip="Move this form up"
+                [disabled]="first"
+                (click)="moveFormUp(i)"
+              >
+                <mat-icon>arrow_upward</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                matTooltip="Move this form down"
+                [disabled]="last"
+                (click)="moveFormDown(i)"
+              >
+                <mat-icon>arrow_downward</mat-icon>
+              </button>
+              <button
+                type="button"
+                mat-icon-button
+                matTooltip="Delete this form"
+                (click)="deleteForm(i)"
+              >
+                <mat-icon class="mat-warn">remove_circle</mat-icon>
+              </button>
+            </td>
+            <td>{{ form.pos }}</td>
+            <td>{{ formToString(form) }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-        <mat-tab label="form" *ngIf="editedForm">
+      @if (editedForm) {
+      <fieldset>
+        <mat-expansion-panel [expanded]="editedForm" [disabled]="!editedForm">
+          <mat-expansion-panel-header>
+            <mat-panel-title> form </mat-panel-title>
+          </mat-expansion-panel-header>
           <pura-word-form
             [posEntries]="posEntries"
             [varTagEntries]="varTagEntries"
             [model]="editedForm"
             (modelChange)="onFormSave($event)"
             (editorClose)="onFormClose()"
-          >
-          </pura-word-form>
-        </mat-tab>
-      </mat-tab-group>
+          />
+        </mat-expansion-panel>
+      </fieldset>
+      }
     </mat-card-content>
     <mat-card-actions>
       <cadmus-close-save-buttons
         [form]="form"
         [noSave]="userLevel < 2"
         (closeRequest)="close()"
-      ></cadmus-close-save-buttons>
+      />
     </mat-card-actions>
   </mat-card>
 </form>

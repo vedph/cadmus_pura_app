@@ -1,5 +1,7 @@
 # Cadmus PURA App
 
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+
 🐋 Quick Docker image build:
 
 1. `npm run build-lib`
@@ -8,12 +10,26 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
-## Production (VeDPH)
+## Setup
 
-1. in `dist/cadmus-pura-app/env.js`: replace `window.__env.apiUrl = "http://localhost:60849/api/";` with `https://6009.cophilab-cloud.ilc.cnr.it/api/`
-2. `docker build . -t vedph2020/cadmus-pura-app:1.2.0-prod`
+This workspace was created with these commands:
+
+```sh
+ng new cadmus-pura-app
+cd cadmus-pura-app
+
+ng add @angular/material
+ng add @angular/localize
+
+ng g library @myrmidon/cadmus-pura-part-ui --prefix cadmus --force
+ng g library @myrmidon/cadmus-pura-part-pg --prefix cadmus --force
+```
 
 ## History
+
+### 6.0.0
+
+- 2025-01-06: ⚠️ updated core Cadmus dependencies and refactored app for modern Angular.
 
 ### 5.0.0
 

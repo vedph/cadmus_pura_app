@@ -16,16 +16,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { CadmusCoreModule, PendingChangesGuard } from '@myrmidon/cadmus-core';
-import { CadmusStateModule } from '@myrmidon/cadmus-state';
-import { CadmusUiModule } from '@myrmidon/cadmus-ui';
-import { CadmusUiPgModule } from '@myrmidon/cadmus-ui-pg';
+import { PendingChangesGuard } from '@myrmidon/cadmus-core';
 import {
   CadmusPuraPartUiModule,
   WORD_FORMS_PART_TYPEID,
   LEMMA_TAG_FRAGMENT_TYPEID,
 } from '@myrmidon/cadmus-pura-part-ui';
 import { TokenTextLayerPartFeatureComponent } from '@myrmidon/cadmus-part-general-pg';
+import { DecoratedTokenTextComponent } from '@myrmidon/cadmus-ui';
+import { CurrentItemBarComponent } from '@myrmidon/cadmus-ui-pg';
 
 import { WordFormsPartFeatureComponent } from './word-forms-part-feature/word-forms-part-feature.component';
 import { LemmaTagFragmentFeatureComponent } from './lemma-tag-fragment-feature/lemma-tag-fragment-feature.component';
@@ -75,10 +74,8 @@ export const RouterModuleForChild = RouterModule.forChild([
     MatTooltipModule,
     // Cadmus
     RouterModuleForChild,
-    CadmusCoreModule,
-    CadmusStateModule,
-    CadmusUiModule,
-    CadmusUiPgModule,
+    CurrentItemBarComponent,
+    DecoratedTokenTextComponent,
     // PURA
     CadmusPuraPartUiModule,
   ],

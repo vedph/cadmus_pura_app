@@ -15,10 +15,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { NgToolsModule } from '@myrmidon/ng-tools';
-import { CadmusUiModule } from '@myrmidon/cadmus-ui';
-import { NgMatToolsModule } from '@myrmidon/ng-mat-tools';
-import { FlagsPickerComponent } from '@myrmidon/cadmus-ui-flags-picker';
+import { CloseSaveButtonsComponent } from '@myrmidon/cadmus-ui';
 
 import { WordFormsPartComponent } from './word-forms-part/word-forms-part.component';
 import { WordFormComponent } from './word-form/word-form.component';
@@ -48,10 +45,7 @@ import { LemmaTagFragmentComponent } from './lemma-tag-fragment/lemma-tag-fragme
     MatTabsModule,
     MatTooltipModule,
     // Cadmus
-    FlagsPickerComponent,
-    CadmusUiModule,
-    NgToolsModule,
-    NgMatToolsModule,
+    CloseSaveButtonsComponent,
   ],
   exports: [
     LemmaTagFragmentComponent,

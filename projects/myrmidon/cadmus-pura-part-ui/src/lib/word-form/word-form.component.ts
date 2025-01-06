@@ -168,9 +168,9 @@ export class WordFormComponent implements OnInit {
     for (let i = 0; i < this.variants.length; i++) {
       const g = this.variants.at(i) as FormGroup;
       entries.push({
-        value: g.controls.value.value?.trim(),
-        pos: g.controls.pos.value?.trim(),
-        tag: g.controls.tag.value?.trim(),
+        value: g.controls['value'].value?.trim(),
+        pos: g.controls['pos'].value?.trim(),
+        tag: g.controls['tag'].value?.trim(),
       });
     }
     return entries.length ? entries : undefined;

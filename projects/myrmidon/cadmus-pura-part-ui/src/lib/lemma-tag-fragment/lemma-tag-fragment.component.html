@@ -4,7 +4,9 @@
       <div mat-card-avatar>
         <mat-icon>textsms</mat-icon>
       </div>
-      <mat-card-title>Lemma Tag Fragment {{ data?.value?.location }}</mat-card-title>
+      <mat-card-title
+        >Lemma Tag Fragment {{ data?.value?.location }}</mat-card-title
+      >
       <mat-card-subtitle> {{ data?.baseText }} </mat-card-subtitle>
     </mat-card-header>
 
@@ -15,11 +17,15 @@
           <mat-label>value</mat-label>
           <input matInput [formControl]="value" />
           <mat-error
-            *ngIf="value.errors?.required && (value.dirty || value.touched)"
+            *ngIf="
+              $any(value).errors?.required && (value.dirty || value.touched)
+            "
             >value required</mat-error
           >
           <mat-error
-            *ngIf="value.errors?.maxLength && (value.dirty || value.touched)"
+            *ngIf="
+              $any(value).errors?.maxLength && (value.dirty || value.touched)
+            "
             >value too long</mat-error
           >
         </mat-form-field>
@@ -32,14 +38,14 @@
           <input matInput [formControl]="normValue" />
           <mat-error
             *ngIf="
-              normValue.errors?.required &&
+              $any(normValue).errors?.required &&
               (normValue.dirty || normValue.touched)
             "
             >norm.value required</mat-error
           >
           <mat-error
             *ngIf="
-              normValue.errors?.maxLength &&
+              $any(normValue).errors?.maxLength &&
               (normValue.dirty || normValue.touched)
             "
             >norm.value too long</mat-error
@@ -49,7 +55,8 @@
 
       <div>
         <!-- tag (bound) -->
-        <mat-form-field *ngIf="lemTagEntries?.length" style="width: 9em">
+        @if (lemTagEntries?.length) {
+        <mat-form-field>
           <mat-label>tag</mat-label>
           <mat-select [formControl]="tag">
             <mat-option *ngFor="let e of lemTagEntries" [value]="e.id">{{
@@ -57,15 +64,17 @@
             }}</mat-option>
           </mat-select>
         </mat-form-field>
-
+        } @else {
         <!-- tag (free) -->
-        <mat-form-field *ngIf="!lemTagEntries?.length" style="width: 9em">
+        <mat-form-field>
           <mat-label>tag</mat-label>
           <input matInput [formControl]="tag" />
-          <mat-error *ngIf="tag.errors?.maxLength && (tag.dirty || tag.touched)"
+          <mat-error
+            *ngIf="$any(tag).errors?.maxLength && (tag.dirty || tag.touched)"
             >tag too long</mat-error
           >
         </mat-form-field>
+        }
       </div>
     </mat-card-content>
 
@@ -74,7 +83,7 @@
         [form]="form"
         [noSave]="userLevel < 2"
         (closeRequest)="close()"
-      ></cadmus-close-save-buttons>
+      />
     </mat-card-actions>
   </mat-card>
 </form>

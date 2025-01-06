@@ -47,7 +47,7 @@ export class LemmaTagFragmentComponent
     this.tag = formBuilder.control(null, Validators.maxLength(50));
   }
 
-  public ngOnInit(): void {
+  public override ngOnInit(): void {
     super.ngOnInit();
   }
 

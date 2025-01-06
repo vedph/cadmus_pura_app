@@ -1,0 +1,44 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  /* min-height: calc(100% - 76px); */
+}
+
+header {
+  flex: 0 0 auto;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex: 0 0 auto;
+  background-color: #f9f9f9;
+  color: #808080;
+  padding: 4px;
+  text-align: center;
+  margin-top: 8px;
+  padding-top: 8px;
+  font-size: 95%;
+}
+
+footer a {
+  color: #808080;
+}
+
+.active {
+  font-size: 100% !important;
+}
+
+mat-icon.small-icon {
+  font-size: 85% !important;
+  margin-left: 8px;
+}
+mat-toolbar {
+  background-color: #cba981;
+}
+
+.tb-fill-remaining-space {
+  flex: 1 1 auto;
+}
