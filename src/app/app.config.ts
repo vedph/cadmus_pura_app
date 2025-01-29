@@ -1,5 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   provideHttpClient,
@@ -9,13 +13,14 @@ import {
 
 import { provideNativeDateAdapter } from '@angular/material/core';
 
+import { NgeMonacoModule } from '@cisstech/nge/monaco';
+
 import { authJwtInterceptor } from '@myrmidon/auth-jwt-login';
 import { PROXY_INTERCEPTOR_OPTIONS } from '@myrmidon/cadmus-refs-lookup';
 import {
   CADMUS_TEXT_ED_SERVICE_OPTIONS_TOKEN,
   CADMUS_TEXT_ED_BINDINGS_TOKEN,
 } from '@myrmidon/cadmus-text-ed';
-import { TextBlockViewComponent } from '@myrmidon/cadmus-text-block-view';
 import { TxtEmojiCtePlugin } from '@myrmidon/cadmus-text-ed-txt';
 import {
   MdBoldCtePlugin,
@@ -33,13 +38,14 @@ import { routes } from './app.routes';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions()),
     provideAnimationsAsync(),
     provideHttpClient(
       withInterceptors([authJwtInterceptor]),
       withJsonpSupport()
     ),
     provideNativeDateAdapter(),
+    importProvidersFrom(NgeMonacoModule.forRoot({})),
     // parts and fragments type IDs to editor group keys mappings
     // https://github.com/nrwl/nx/issues/208#issuecomment-384102058
     // inject like: @Inject('partEditorKeys') partEditorKeys: PartEditorKeys

@@ -27,6 +27,8 @@ ng g library @myrmidon/cadmus-pura-part-pg --prefix cadmus --force
 
 ## History
 
+- 2025-01-29: ⚠️ updated to signal-based dependencies.
+
 ### 6.0.0
 
 - 2025-01-06: ⚠️ updated core Cadmus dependencies and refactored app for modern Angular.

@@ -6,7 +6,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+
 import { ThesaurusEntry } from '@myrmidon/cadmus-core';
+
 import { VariantForm, WordForm } from '../word-forms-part';
 
 @Component({
